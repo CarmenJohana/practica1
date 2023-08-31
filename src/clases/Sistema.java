@@ -100,7 +100,7 @@ public class Sistema {
 	//Retorna la posición del usuario
 
 
-	public int buscarUsuario(long id) {
+	public int buscarPosicicion(long id) {
 
 
 		for (int i=0;i<registro.length;i++) {
@@ -109,7 +109,15 @@ public class Sistema {
 			}
 		}
 
-		return -1;
+		return null;
+
+	}
+
+
+	public Usuario buscarUsuario(long id){
+
+	    return registro[buscarPosicion(id)];
+
 
 	}
 
@@ -119,7 +127,7 @@ public class Sistema {
 
 		int posicion=buscarUsuario(id);
 
-		if (numUsuarios>0 && posicion>=0) {
+		if (numUsuarios>0 && posicion!=null) {
 
 			Usuario aux = registro[posicion];
 			for (int j =  posicion ; j<numUsuarios-1; j++) {
