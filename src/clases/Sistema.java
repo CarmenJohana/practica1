@@ -28,8 +28,6 @@ public class Sistema {
 
 
 
-
-
 	//Inicializa el registro ordenando los iniciales
 
 	public void setRegistro(Usuario[] registro) {
@@ -70,7 +68,7 @@ public class Sistema {
 	//Ingresa un nuevo usuario
 
 	public void registrarUsuarios(Usuario u){
-		if(numUsuarios<registro.length && (buscarUsuario(u.getId()))==-1) {
+		if(numUsuarios<registro.length && (buscarPosicion(u.getId()))==-1) {
 
 			registro[numUsuarios]=u;
 			numUsuarios++;
@@ -100,16 +98,16 @@ public class Sistema {
 	//Retorna la posición del usuario
 
 
-	public int buscarPosicicion(long id) {
+	public int buscarPosicion(long id) {
 
 
-		for (int i=0;i<registro.length;i++) {
+		for (int i=0;i<numUsuarios;i++) {
 			if(registro[i].getId()==id) {
 				return i;
 			}
 		}
 
-		return null;
+		return -1;
 
 	}
 
@@ -125,32 +123,26 @@ public class Sistema {
 
 	public Usuario removerUsuario(long id){
 
-		int posicion=buscarUsuario(id);
+		int posicion =  buscarPosicion(id);
 
-		if (numUsuarios>0 && posicion!=null) {
+		if (numUsuarios>0 && posicion!= -1) {
 
 			Usuario aux = registro[posicion];
-			for (int j =  posicion ; j<numUsuarios-1; j++) {
-
-				registro[j]=registro[j+1];
-
-			registro[numUsuarios-1]=null;
+			for (int j = posicion; j < numUsuarios - 1; j++) {
+				registro[j] = registro[j + 1];
+			}
+			registro[numUsuarios - 1] = null;
 			numUsuarios--;
 			return aux;
 
-			}
 		}
+		
 
 		return null;
 
 
-
-
-
-
-
-
 		}
+
 
 
 
