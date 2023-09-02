@@ -26,8 +26,6 @@ public class Sistema {
 	}
 
 
-
-
 	//Inicializa el registro ordenando los iniciales
 
 	public void setRegistro(Usuario[] registro) {
@@ -98,6 +96,7 @@ public class Sistema {
 	//Retorna la posición del usuario
 
 
+	// Si itero sobre el registro.length, me va a dar error porque el array tiene 10 posiciones, pero solo 5 están ocupadas
 	public int buscarPosicion(long id) {
 
 

@@ -22,7 +22,7 @@ public class Usuario {
 		
 	}
 	
-	public Usuario(long id,String n) {
+	public Usuario(long id, String n) {
 		
 		
 		this.id=id;

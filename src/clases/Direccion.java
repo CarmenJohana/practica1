@@ -60,8 +60,8 @@ public class Direccion {
 
 	@Override
 	public String toString() {
-		return "Direccion [Calle=" + calle + ", noCalle=" + noCalle + ", nomenclatura=" + nomenclatura + ", barrio="
-				+ barrio + ", ciudad=" + ciudad + "]";
+		return calle + " " + noCalle + " " + nomenclatura + " "
+				+ barrio + " " + ciudad;
 	}
 	
 	

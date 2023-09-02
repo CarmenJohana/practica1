@@ -18,14 +18,7 @@ public class Main {
         System.out.println(usuario1);
 
         Sistema sistema = new Sistema(10);
-        sistema.registrarUsuarios(usuario1);
-        sistema.registrarUsuarios(usuario2);
-        sistema.registrarUsuarios(usuario3);
-        sistema.registrarUsuarios(usuario4);
-        sistema.registrarUsuarios(usuario5);
-        sistema.registrarUsuarios(usuario6);
-        sistema.registrarUsuarios(usuario7);
-        sistema.registrarUsuarios(usuario8);
+
     
 
         System.out.println("\nUsuarios registrados:");
