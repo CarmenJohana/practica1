@@ -141,7 +141,30 @@ public class Sistema {
 
 
 		}
-
+	public void toFile() {
+		
+		try {
+			FileWriter registroTxt = new FileWriter("registro.txt");
+			PrintWriter informacion = new PrintWriter(registroTxt);
+			
+			for( int i = 0; i < registro.length; i++) {
+				if(registro[i] == null) {
+					break;
+					}
+				else {
+					informacion.println(registro[i].getId() + ", " + registro[i].getNombre() + ", " + registro[i].getFecha_nac().dd +
+							", " + registro[i].getFecha_nac().mm + ", " + registro[i].getFecha_nac().aa + ", " + registro[i].getCiudad_nac() 
+							+ ", " + registro[i].getNombre() + ", " + registro[i].getDir().getCalle() + ", " + registro[i].getDir().getNoCalle() 
+							+ ", " + registro[i].getDir().getNomenclatura() + ", " + registro[i].getDir().getBarrio() + ", " + registro[i].getDir().getCiudad() 
+							+ ", " + registro[i].getTel() + ", " + registro[i].getEmail() + "\n");
+					}
+				}
+			informacion.close();
+			
+		} catch(IOException e) {
+			  e.printStackTrace();
+			}
+		}
 
 
 
