@@ -1,0 +1,6 @@
+7, Carmen, 15, 8, 1990, Ciudad Y, Calle A, 123, Norte, Barrio X, Ciudad Y, 1234567890, juan@example.com
+6, Nuevo, 1, 1, 2000, Monteria, Calle, 23, Provincia, Laureles, Medellï¿½n, 456893, direccion@unal.edu.co
+5, Gabriel, 15, 8, 1990, Ciudad Z, Calle A, 123, Norte, Barrio X, Ciudad Y, 1234567890, juan@example.com
+4, Andres, 15, 8, 1990, Ciudad X, Calle A, 123, Norte, Barrio X, Ciudad Y, 1234567890, juan@example.com
+2, Nuevo, 1, 1, 2000, Monteria, Calle, 23, Provincia, Laureles, Medellín, 456893, direccion@unal.edu.co
+1, Nicolas, 15, 8, 1990, Ciudad W, Calle A, 123, Norte, Barrio X, Ciudad Y, 1234567890, juan@example.com

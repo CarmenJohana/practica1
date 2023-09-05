@@ -1,3 +1,0 @@
-1010321342, "Gabriel", 12/08/09, "Ciudad Y", Avenida 10 Diagonal Floresta Medellin, 1327847890, "gabriel@example.com"
-1001371261, "Juan", 20/10/13, "Ciudad X", Calle 54 Norte Laureles Medellin, 1234567890, "juan@example.com"
-1001352342, "Carmen", 12/08/09, "Ciudad M", Carrera 32 Sur America Medellin, 1234647890, "carmen@example.com"

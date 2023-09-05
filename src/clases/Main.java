@@ -3,49 +3,34 @@ package clases;
 public class Main {
 
     public static void main(String[] args) {
-        Direccion direccion1 = new Direccion("Calle A", 123, "Norte", "Barrio X", "Ciudad Y");
-        Fecha fechaNacimiento = new Fecha(15, 8, 1990);
-        Usuario usuario1 = new Usuario(1, "Juan", fechaNacimiento, "Ciudad X", direccion1, 1234567890, "juan@example.com");
-        Usuario usuario2 = new Usuario(2, "Carmen", fechaNacimiento, "Ciudad Y", direccion1, 1234567890, "juan@example.com");
-        Usuario usuario3 = new Usuario(3, "Gabriel", fechaNacimiento, "Ciudad Z", direccion1, 1234567890, "juan@example.com");
-        Usuario usuario4 = new Usuario(4, "Nicolas", fechaNacimiento, "Ciudad W", direccion1, 1234567890, "juan@example.com");
-        Usuario usuario5 = new Usuario(5, "Andres", fechaNacimiento, "Ciudad X", direccion1, 1234567890, "juan@example.com");
-        Usuario usuario6 = new Usuario(6, "Felipe", fechaNacimiento, "Ciudad Y", direccion1, 1234567890, "juan@example.com");
-        Usuario usuario7 = new Usuario(7, "Camila", fechaNacimiento, "Ciudad Z", direccion1, 1234567890, "juan@example.com");
-        Usuario usuario8 = new Usuario(8, "Natalia", fechaNacimiento, "Ciudad W", direccion1, 1234567890, "juan@example.com");
+         Fecha fecha = new Fecha(1, 1, 2000);
+        Direccion direccion = new Direccion("Calle", 23, "Provincia", "Laureles", "Medellín");
+        Usuario usuario = new Usuario(2, "Nuevo", fecha, "Monteria", direccion, 456893 ,"direccion@unal.edu.co");
+/*         Usuario usuario2 = new Usuario(1001365936, "Daniel", fecha, "Monteria", direccion, 456893 ,"lala@unal.edu.co");
+        Usuario usuario3 = new Usuario(1001365937, "Andres", fecha, "Monteria", direccion, 456893 ,"andres@unal.edu.co");
 
-        System.out.println("Información del Usuario:");
-        System.out.println(usuario1);
+          */
 
-        Sistema sistema = new Sistema(10);
 
-    
 
-        System.out.println("\nUsuarios registrados:");
-        for (int i = 0; i < sistema.getNumUsuarios(); i++) {
-            System.out.println(sistema.getRegistro()[i]);
-        }
+        Sistema sistema = new Sistema(10); // Ajusta la capacidad según tus necesidades
+/*         sistema.fromFile("registro.txt"); */
+/*         sistema.registrarUsuarios(usuario);
+        sistema.registrarUsuarios(usuario2);
+        sistema.registrarUsuarios(usuario3);
+ */
+/*         sistema.toFile(); */
 
-        Usuario usuarioEncontrado = sistema.buscarUsuario(4);
-        if (usuarioEncontrado != null) {
-            System.out.println("\nUsuario encontrado:");
-            System.out.println(usuarioEncontrado);
-        } else {
-            System.out.println("\nUsuario no encontrado.");
-        }
+        sistema.fromFile("registro.txt");
+        sistema.registrarUsuarios(usuario);
+        sistema.toFile();
 
-        Usuario usuarioRemovido1 = sistema.removerUsuario(2); 
-        Usuario usuarioRemovido2 = sistema.removerUsuario(4);
-        System.out.println("\nUsuarios registrados:");
-        if (sistema.getNumUsuarios() == 0) {
-            System.out.println("No hay usuarios registrados.");
-        }
-        for (int i = 0; i < sistema.getNumUsuarios(); i++) {
-            System.out.println(sistema.getRegistro()[i]);
-        }
+        sistema.removerUsuario(3);
+        sistema.toFile();
 
         for (int i = 0; i < sistema.getNumUsuarios(); i++) {
-            System.out.println(sistema.getRegistro()[i].getNombre() + " " + sistema.buscarPosicion(sistema.getRegistro()[i].getId()));
+            System.out.println(sistema.getRegistro()[i].getId());
         }
+
     }
 }
