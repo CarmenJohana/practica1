@@ -10,7 +10,10 @@ public class Main {
         Usuario usuario3 = new Usuario(1001365937, "Andres", fecha, "Monteria", direccion, 456893 ,"andres@unal.edu.co");
 
           */
-
+        
+        Usuario u=new Usuario(12345, "Carmen");
+		Usuario u1=new Usuario(1, "Johana");
+		Usuario u3=new Usuario(9, "Cas");
 
 
         Sistema sistema = new Sistema(10); // Ajusta la capacidad según tus necesidades
