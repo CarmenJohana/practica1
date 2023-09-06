@@ -5,12 +5,14 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.io.*;
+
 
 public class Sistema {
 
 
-	int numUsuarios;
-	Usuario[] registro;
+	private int numUsuarios;
+	private Usuario[] registro;
 
 	public Sistema(int capacidad){
 		registro=new Usuario[capacidad];
@@ -38,32 +40,12 @@ public class Sistema {
 
 
 		if(registro.length<=this.registro.length) {
-
 			for(int i=0; i<registro.length;i++) {
-
-					this.registro[i]=registro[i];
-
-					//Copiamos el array
+				registrarUsuarios(registro[i]);
 			}
-
-			long idMax=registro[0].getId();
-
-			for(int i=0;i<registro.length-1;i++) {
-
-				for(int j=i+1; j<registro.length;j++) {
-
-					if (registro[i].getId()>registro[j].getId()) {
-
-						Usuario temp=registro[i];
-						registro[i]=registro[j];
-						registro[j]=temp;
-
-
-					}
-				}
-			}
-
 		}
+
+
 
 
 	}
@@ -85,7 +67,7 @@ public class Sistema {
 		if (numUsuarios>1){
 
 			int t=numUsuarios-1;
-			while(t>0 && registro[t].getId()>registro[t-1].getId()) {
+			while(t>0 && registro[t].getId()<registro[t-1].getId()) {
 				registro[t]=registro[t-1];
 				registro[t-1]=u;
 				t--;
@@ -118,10 +100,13 @@ public class Sistema {
 
 	// Cambié este método
 	public Usuario buscarUsuario(long id){
+
 		int posicion = buscarPosicion(id);
-		if (posicion != -1 && posicion < numUsuarios) {
+
+		if (posicion != -1) {
 			return registro[posicion];
-		} else {
+		}
+		else {
 			return null; // Usuario no encontrado
 		}
 	}
@@ -143,39 +128,39 @@ public class Sistema {
 			return aux;
 
 		}
-		
+
 
 		return null;
 
 
 		}
-		
+
 	public void toFile() {
-		
+
 		try {
 			FileWriter registroTxt = new FileWriter("registro.txt");
 			PrintWriter informacion = new PrintWriter(registroTxt);
-			
+
 			for( int i = 0; i < registro.length; i++) {
 				if(registro[i] == null) {
 					break;
 					}
 				else {
 					informacion.println(registro[i].getId() + ", " + registro[i].getNombre() + ", " + registro[i].getFecha_nac().dd +
-							", " + registro[i].getFecha_nac().mm + ", " + registro[i].getFecha_nac().aa + ", " + registro[i].getCiudad_nac() 
-							+ ", " + registro[i].getDir().getCalle() + ", " + registro[i].getDir().getNoCalle() 
-							+ ", " + registro[i].getDir().getNomenclatura() + ", " + registro[i].getDir().getBarrio() + ", " + registro[i].getDir().getCiudad() 
+							", " + registro[i].getFecha_nac().mm + ", " + registro[i].getFecha_nac().aa + ", " + registro[i].getCiudad_nac()
+							+ ", " + registro[i].getDir().getCalle() + ", " + registro[i].getDir().getNoCalle()
+							+ ", " + registro[i].getDir().getNomenclatura() + ", " + registro[i].getDir().getBarrio() + ", " + registro[i].getDir().getCiudad()
 							+ ", " + registro[i].getTel() + ", " + registro[i].getEmail());
 					}
 				}
 			informacion.close();
 			System.out.println("Se ha creado el archivo registro.txt");
-			
+
 		} catch(IOException e) {
 			  e.printStackTrace();
 			}
 		}
-	 
+	 /***
 		public void fromFile(String archivo) {
 			try {
 				BufferedReader reader = new BufferedReader(new FileReader(archivo));
@@ -195,11 +180,11 @@ public class Sistema {
 					String ciudadDir = partes[10];
 					long tel = Long.parseLong(partes[11]);
 					String email = partes[12];
-	
+
 					Fecha fechaNacimiento = new Fecha(dd, mm, aa);
 					Direccion direccion = new Direccion(calle, noCalle, nomenclatura, barrio, ciudadDir);
 					Usuario usuario = new Usuario(id, nombre, fechaNacimiento, ciudadNac, direccion, tel, email);
-	
+
 					registrarUsuarios(usuario);
 					System.out.println("Se ha registrado el usuario " + usuario.getNombre());
 				}
@@ -208,8 +193,69 @@ public class Sistema {
 				e.printStackTrace();
 			}
 		}
+***/
+	public void importar(String filename) {
+	 File archivo = null;
+     FileReader fr = null;
+     BufferedReader br = null;
+
+     try {
+        // Apertura del fichero y creacion de BufferedReader para poder
+        // hacer una lectura comoda (disponer del metodo readLine()).
+        archivo = new File (filename);
+        fr = new FileReader (archivo);
+        br = new BufferedReader(fr);
+
+        // Lectura del fichero
+        String linea;
 
 
 
+
+        while((linea=br.readLine())!=null) {
+
+        	String[] textoSeparado = linea.split(", ");
+
+        	Usuario u1=new Usuario(Long.parseLong(textoSeparado[0]), textoSeparado[1]);
+
+        	if (textoSeparado.length>2) {
+
+        		String[]direccion = textoSeparado[4].split(" ");
+        		String[] fecha = textoSeparado[2].split("-");
+        		Fecha fechaNacimiento=new Fecha(Integer.parseInt(fecha[0]),Integer.parseInt(fecha[1]),Integer.parseInt(fecha[2]));
+        		Direccion dir= new Direccion(direccion[0],Integer.parseInt(direccion[1]),direccion[2], direccion[3], direccion[4]);
+
+        		u1.setEmail(textoSeparado[6]);
+        		u1.setTel(Long.parseLong(textoSeparado[5]));
+        		u1.setCiudad_nac(textoSeparado[3]);
+        		u1.setFecha_nac(fechaNacimiento);
+        		u1.setDir(dir);
+
+        		registrarUsuarios(u1);
+        	}
+
+        	//System.out.println(linea);
+
+
+
+        }
+
+
+     }
+     catch(Exception e){
+        e.printStackTrace();
+     }finally{
+        // En el finally cerramos el fichero, para asegurarnos
+        // que se cierra tanto si todo va bien como si salta
+        // una excepcion.
+        try{
+           if( null != fr ){
+              fr.close();
+           }
+        }catch (Exception e2){
+           e2.printStackTrace();
+        }
+     }
+  }
 }
 
