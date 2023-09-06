@@ -146,11 +146,17 @@ public class Sistema {
 					break;
 					}
 				else {
-					informacion.println(registro[i].getId() + ", " + registro[i].getNombre() + ", " + registro[i].getFecha_nac().dd +
-							", " + registro[i].getFecha_nac().mm + ", " + registro[i].getFecha_nac().aa + ", " + registro[i].getCiudad_nac()
-							+ ", " + registro[i].getDir().getCalle() + ", " + registro[i].getDir().getNoCalle()
-							+ ", " + registro[i].getDir().getNomenclatura() + ", " + registro[i].getDir().getBarrio() + ", " + registro[i].getDir().getCiudad()
-							+ ", " + registro[i].getTel() + ", " + registro[i].getEmail());
+					if (registro[i].getDir()!=null) {
+						informacion.println(registro[i].getId() + ", " + registro[i].getNombre() + ", " + registro[i].getFecha_nac().dd +
+								"-" + registro[i].getFecha_nac().mm + "-" + registro[i].getFecha_nac().aa + ", " + registro[i].getCiudad_nac()
+								+ ", " + registro[i].getDir().getCalle() + " " + registro[i].getDir().getNoCalle()
+								+ " " + registro[i].getDir().getNomenclatura() + " " + registro[i].getDir().getBarrio() + " " + registro[i].getDir().getCiudad()
+								+ ", " + registro[i].getTel() + ", " + registro[i].getEmail());
+						}
+					else {
+						informacion.println(registro[i].getId() + ", " + registro[i].getNombre());
+
+					}
 					}
 				}
 			informacion.close();
@@ -231,8 +237,9 @@ public class Sistema {
         		u1.setFecha_nac(fechaNacimiento);
         		u1.setDir(dir);
 
-        		registrarUsuarios(u1);
+
         	}
+        	registrarUsuarios(u1);
 
         	//System.out.println(linea);
 
@@ -258,4 +265,3 @@ public class Sistema {
      }
   }
 }
-
