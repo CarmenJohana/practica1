@@ -64,7 +64,7 @@ public class Sistema {
 			registro[numUsuarios-1]=u;
 
 		}
-		if (numUsuarios>1){
+		if (numUsuarios>1 ){
 
 			int t=numUsuarios-1;
 			while(t>0 && registro[t].getId()<registro[t-1].getId()) {
@@ -72,7 +72,9 @@ public class Sistema {
 				registro[t-1]=u;
 				t--;
 			}
+
 		}
+			toFile();
 
 		}
 
@@ -125,7 +127,11 @@ public class Sistema {
 			}
 			registro[numUsuarios - 1] = null;
 			numUsuarios--;
+
+			toFile();
 			return aux;
+
+
 
 		}
 
@@ -265,3 +271,4 @@ public class Sistema {
      }
   }
 }
+
