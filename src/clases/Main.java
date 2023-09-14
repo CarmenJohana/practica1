@@ -3,18 +3,36 @@ package clases;
 public class Main {
 
     public static void main(String[] args) {
-         Fecha fecha = new Fecha(1, 1, 2000);
-        Direccion direccion = new Direccion("Calle", 23, "Provincia", "Laureles", "Medellín");
-        Usuario usuario = new Usuario(2, "Nuevo", fecha, "Monteria", direccion, 456893 ,"direccion@unal.edu.co");
-/*         Usuario usuario2 = new Usuario(1001365936, "Daniel", fecha, "Monteria", direccion, 456893 ,"lala@unal.edu.co");
-        Usuario usuario3 = new Usuario(1001365937, "Andres", fecha, "Monteria", direccion, 456893 ,"andres@unal.edu.co");
-
-          */
         
+    	//Implementaciones de la clase fecha, direccion, usuario y sistema
+    	
+    	Fecha fecha = new Fecha(1, 1, 2000); //Constructor dd, mm, aa
+        Direccion direccion = new Direccion("Calle", 23, "Provincia", "Laureles", "Medellín"); 
 
+        Sistema sistema1 = new Sistema(10);
+        
+        
+        Usuario u=new Usuario(12345, "Carmen");
+		Usuario u1=new Usuario(1, "Johana");
+		Usuario u3=new Usuario(9, "Cas");
+		Usuario u4=new Usuario(11231,"Pepe", new Fecha(13,03,2),"Hanoi",new Direccion("Av.",80, "No.", "Robledo", "Medellin"),4337468,"pepe@gmail.com");
 
+		Usuario u5=new Usuario(35, "Harry");
+		Usuario u6=new Usuario(91, "Moon");
+		Usuario u7=new Usuario(90, "Dog");
+		Usuario u8=new Usuario(45, "Louise");
+		Usuario u9=new Usuario(999999999, "Marshall");
+		Usuario u10=new Usuario(9, "Marshall",fecha,"Venecia",direccion,4337468,"pepe@gmail.com" );
+		
+		
 
-        Sistema sistema1 = new Sistema(10); // Ajusta la capacidad según tus necesidades
+        
+        
+        
+        
+        
+        
+        
 /*         sistema.fromFile("registro.txt"); */
 /*         sistema.registrarUsuarios(usuario);
         sistema.registrarUsuarios(usuario2);
@@ -22,7 +40,7 @@ public class Main {
  */
 /*         sistema.toFile(); */
 
-        sistema1.fromFile("registro.txt");
+        //sistema1.fromFile("registro.txt");
         sistema1.registrarUsuarios(usuario);
         sistema1.toFile();
 
@@ -128,6 +146,13 @@ public class Main {
 	    System.out.println(sistema.buscarUsuario(1));//Devuelve null pues Johana fue retirada
 	    System.out.println(sistema.buscarUsuario(999999990));// Devuelve Jose
 	    System.out.println(sistema.buscarUsuario(11231)); //Devuelve Pepe
+	    
+	    
+	    
+	    /*Usuario usuario2 = new Usuario(1001365936, "Daniel", fecha, "Monteria", direccion, 456893 ,"lala@unal.edu.co");
+        Usuario usuario3 = new Usuario(1001365937, "Andres", fecha, "Monteria", direccion, 456893 ,"andres@unal.edu.co");
+
+         */
 
 
     }
