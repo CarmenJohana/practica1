@@ -2,19 +2,21 @@ package clases;
 
 public class Direccion {
 	
-	String calle;
-	int noCalle;
-	String nomenclatura;
-	String barrio;
-	String ciudad;
+	private String calle;
+	private String nomenclatura;
+	private String barrio;
+	private String ciudad;
+	private String urbanizacion;
+	private int apto;
 	
-	public Direccion(String calle, int noCalle, String nomenclatura, String barrio, String ciudad) {
+	public Direccion(String calle, String nomenclatura, String barrio, String ciudad, String urbanizacion, int apto) {
 		
 		this.calle=calle;
-		this.noCalle=noCalle;
 		this.nomenclatura=nomenclatura;
 		this.barrio=barrio;
 		this.ciudad=ciudad;
+		this.urbanizacion=urbanizacion;
+		this.apto=apto;
 		
 	}
 
@@ -25,14 +27,24 @@ public class Direccion {
 	public void setCalle(String calle) {
 		this.calle = calle;
 	}
-
-	public int getNoCalle() {
-		return noCalle;
+	
+	public String getUrbanizacion() {
+		return urbanizacion;
 	}
 
-	public void setNoCalle(int noCalle) {
-		this.noCalle = noCalle;
+	public void setUrbanizaciones(String urbanizacion) {
+		this.urbanizacion = urbanizacion;
 	}
+	
+	public int getApto() {
+		return apto;
+	}
+
+	public void setApto(int apto) {
+		this.apto = apto;
+	}
+
+	
 
 	public String getNomenclatura() {
 		return nomenclatura;
@@ -60,10 +72,8 @@ public class Direccion {
 
 	@Override
 	public String toString() {
-		return calle +" "+ noCalle + " " + nomenclatura + " "+ barrio + " " + ciudad;
+		return calle + " " + nomenclatura + " "+ barrio + " " + ciudad;
 	}
 	
-	
-	
-	
+		
 }
