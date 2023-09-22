@@ -40,7 +40,7 @@ public class Fecha {
 
 	@Override
 	public String toString() {
-		return  dd + "-" + mm + "-" + aa;
+		return  dd + " " + mm + " " + aa;
 	}
 	
 	
