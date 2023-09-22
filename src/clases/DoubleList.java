@@ -109,7 +109,9 @@ public class DoubleList {
 			DoubleNode m = new DoubleNode(e);
 			DoubleNode temp_prev = n.getPrev();
 			temp_prev.setNext(m);
-			m.setPrev(m);
+			m.setPrev(temp_prev);
+			m.setNext(n);
+			n.setPrev(m);
 			size++;
 			
 		}
