@@ -1,4 +1,4 @@
-package clases;
+/* package clases;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -48,11 +48,11 @@ public class Sistema {
 
 
 
-	}
+	} */
 
 
 	//Ingresa un nuevo usuario
-
+/* 
 	public void registrarUsuarios(Usuario u){
 		if(numUsuarios<registro.length && (buscarPosicion(u.getId()))==-1) {
 
@@ -78,7 +78,7 @@ public class Sistema {
 
 		}
 
-	}
+	} */
 
 
 
@@ -87,7 +87,7 @@ public class Sistema {
 
 
 	// Si itero sobre el registro.length, me va a dar error porque el array tiene 10 posiciones, pero solo 5 están ocupadas
-	public int buscarPosicion(long id) {
+/* 	public int buscarPosicion(long id) {
 
 
 		for (int i=0;i<numUsuarios;i++) {
@@ -111,10 +111,10 @@ public class Sistema {
 		else {
 			return null; // Usuario no encontrado
 		}
-	}
+	} */
 
 	//Elimina el usuario del registro dado su Id
-
+/* 
 	public Usuario removerUsuario(long id){
 
 		int posicion =  buscarPosicion(id);
@@ -139,9 +139,9 @@ public class Sistema {
 		return null;
 
 
-		}
+		} */
 
-	public void toFile() {
+/* 	public void toFile() {
 
 		try {
 			FileWriter registroTxt = new FileWriter("registro.txt");
@@ -171,7 +171,7 @@ public class Sistema {
 		} catch(IOException e) {
 			  e.printStackTrace();
 			}
-		}
+		} */
 	 /***
 		public void fromFile(String archivo) {
 			try {
@@ -206,7 +206,7 @@ public class Sistema {
 			}
 		}
 ***/
-	public void importar(String filename) {
+/* 	public void importar(String filename) {
 	 File archivo = null;
      FileReader fr = null;
      BufferedReader br = null;
@@ -270,5 +270,5 @@ public class Sistema {
         }
      }
   }
-}
+} */
 

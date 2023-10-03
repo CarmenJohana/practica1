@@ -1,6 +1,10 @@
-7, Carmen, 15, 8, 1990, Ciudad Y, Calle A, 123, Norte, Barrio X, Ciudad Y, 1234567890, juan@example.com
-6, Nuevo, 1, 1, 2000, Monteria, Calle, 23, Provincia, Laureles, Medellï¿½n, 456893, direccion@unal.edu.co
-5, Gabriel, 15, 8, 1990, Ciudad Z, Calle A, 123, Norte, Barrio X, Ciudad Y, 1234567890, juan@example.com
-4, Andres, 15, 8, 1990, Ciudad X, Calle A, 123, Norte, Barrio X, Ciudad Y, 1234567890, juan@example.com
-2, Nuevo, 1, 1, 2000, Monteria, Calle, 23, Provincia, Laureles, Medellín, 456893, direccion@unal.edu.co
-1, Nicolas, 15, 8, 1990, Ciudad W, Calle A, 123, Norte, Barrio X, Ciudad Y, 1234567890, juan@example.com
+  0, Maria
+9, Cas
+35, Harry
+45, Louise
+90, Dog
+91, Moon
+11231, Pepe, 13-3-2, Hanoi, Av. 80 No. Robledo Medellin, 4337468, pepe@gmail.com
+12345, Carmen
+100000000, Jose
+999999990, Jose
