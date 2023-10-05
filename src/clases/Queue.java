@@ -1,10 +1,10 @@
 package clases;
 
-public class Queue {
-    private List data;
+public class Queue<T> {
+    private List<T> data;
 
     public Queue() {
-        data = new List();
+        data = new List<T>();
     }
 
     public int size() {
@@ -15,11 +15,11 @@ public class Queue {
         return size()==0;
     }
 
-    public void enqueue(Object e) {
+    public void enqueue(T e) {
         data.addLast(e);
     }
 
-    public Object dequeue() {
+    public T dequeue() {
         if (isEmpty()) {
             return null;
         } else {
@@ -27,7 +27,7 @@ public class Queue {
         }
     }
 
-    public Object first() {
+    public T first() {
         if (isEmpty()) {
             return null;
         } else {
@@ -35,11 +35,11 @@ public class Queue {
         }
     }
 
-    public List getData() {
+    public List<T> getData() {
         return data;
     }
 
-    public void setData(List data) {
+    public void setData(List<T> data) {
         this.data = data;
     }
 }

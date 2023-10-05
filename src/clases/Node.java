@@ -1,35 +1,32 @@
 package clases;
 
-public class Node {
+public class Node <T>{
 
-	private Object data;
-	private Node next;
+	private T data;
+	private Node<T> next;
 	
 	public Node() {
 
 	}
-	public Node(Object e) {
+	public Node(T e) {
 		data=e;
 	}
 	
-	public Object getData() {
+	public T getData() {
 		return data;
 	}
 	
-	public Node getNext() {
+	public Node<T> getNext() {
 		return next;
 	}
 	
-	public void setData(Object e) {
+	public void setData(T e) {
 		data=e;
 	}
 	
-	public void setNext(Node n) {
+	public void setNext(Node<T> n) {
 		next=n;
 	}
 	
-	
-	
-	
-	
 }
+

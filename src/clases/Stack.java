@@ -1,10 +1,10 @@
 package clases;
 
-public class Stack {
-    private List data;
+public class Stack <T>{
+    private List<T> data;
 
     public Stack() {
-        data = new List();
+        data = new List<T>();
     }
 
     public int size() {
@@ -15,15 +15,15 @@ public class Stack {
         return size() == 0;
     }
 
-    public void push(Object e) {
+    public void push(T e) {
         data.addFirst(e);
     }
 
-    public Object pop() {
+    public T pop() {
         return data.removeFirst();
     }
 
-    public Object top() {
+    public T top() {
         if (!isEmpty()) {
             return data.First().getData();
         } else {
@@ -31,11 +31,11 @@ public class Stack {
         }
     }
 
-    public List getData() {
+    public List<T> getData() {
         return data;
     }
 
-    public void setData(List data) {
+    public void setData(List<T> data) {
         this.data = data;
     }
 }

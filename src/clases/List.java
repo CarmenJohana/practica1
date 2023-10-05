@@ -1,9 +1,9 @@
 package clases;
 
-public class List {
+public class List<T> {
 	
-	private Node head;
-	private Node tail;
+	private Node<T> head;
+	private Node<T> tail;
 	private int size;
 	
 	public List() {
@@ -25,15 +25,15 @@ public class List {
 	public void setSize(int s){
 		size=s;
 	}
-	public Node First() {
+	public Node<T> First() {
 		return head;
 	}
-	public Node Last() {
+	public Node<T> Last() {
 		return tail;
 	}
-	public void addFirst(Object e) {
+	public void addFirst(T e) {
 		
-		Node n = new Node(e);
+		Node<T> n = new Node<T>(e);
 		if (isEmpty()) {
 			head = n;
 			tail = n;
@@ -47,9 +47,9 @@ public class List {
 		size++;
 		
 	}
-	public void addLast(Object e) {
+	public void addLast(T e) {
 		
-		Node n = new Node(e);
+		Node<T> n = new Node<T>(e);
 		if(isEmpty()) {
 			head = n;
 			tail = n;
@@ -60,11 +60,11 @@ public class List {
 		}
 		size++;	
 	}
-	public Object removeFirst() {
+	public T removeFirst() {
 		if (!(isEmpty())) {
 			
 			
-			Node temp = head;
+			Node<T> temp = head;
 			head = temp.getNext();
 			temp.setNext(null);
 			size--;
@@ -74,19 +74,21 @@ public class List {
 		return null;
 	}
 	
-	public Object removeLast() {
+	public T removeLast() {
 		if (size==1) {
 			return removeFirst();
 		}
 		else {
-			Node temp = tail;
-			Node anterior =head;
-			while(anterior.getNext()!=tail) {
-				
-				anterior = anterior.getNext();
-				
+			Node<T> temp = tail;
+			Node<T> anterior =head;
+			if(anterior!=null) {
+				while(anterior.getNext()!=tail) {
+					
+					anterior = anterior.getNext();
+					
+				}
+				anterior.setNext(null);
 			}
-			anterior.setNext(null);
 			tail = anterior;
 			size--;
 			return temp.getData();

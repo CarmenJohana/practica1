@@ -1,10 +1,10 @@
 package clases;
 
-public class DoubleNode {
+public class DoubleNode<T> {
 	
-	private Object data;
-	private DoubleNode next;
-	private DoubleNode prev;
+	private T data;
+	private DoubleNode<T> next;
+	private DoubleNode<T> prev;
 	
 	public DoubleNode() {
 		data=null;
@@ -12,27 +12,27 @@ public class DoubleNode {
 		next=null;
 	}
 
-	public DoubleNode(Object d) {
+	public DoubleNode(T d) {
 		this();
 		data=d;
 		
 	}
-	public void setData(Object d) {
+	public void setData(T d) {
 		data=d;
 	}
-	public void setNext(DoubleNode n){
+	public void setNext(DoubleNode<T> n){
 		next=n;
 	}
-	public void setPrev(DoubleNode p) {
+	public void setPrev(DoubleNode<T> p) {
 		prev=p;
 	}
-	public Object getData() {
+	public T getData() {
 		return data;
 	}
-	public DoubleNode getNext() {
+	public DoubleNode<T> getNext() {
 		return next;
 	}
-	public DoubleNode getPrev() {
+	public DoubleNode<T> getPrev() {
 		return prev;
 	}
 }
