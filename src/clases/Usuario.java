@@ -1,10 +1,24 @@
 package clases;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.Scanner;
+
+import java.util.Date;
+
+
 public class Usuario {
 	private long cedula;
 	private String nombre;
 	private Fecha fecha_nac;
 	private String cargo; // administrador o empleado...Se asigna al leer el txt de passwords 
+	private String clave;
 	private String ciudad_nac;
 	private Direccion dir;
 	private long tel;
@@ -14,7 +28,6 @@ public class Usuario {
 	private Stack borradores;  //Los borradores estarán en una pila
 	
 	public Usuario(String nombre,long cedula,Fecha fecha_nac,String ciudad_nac,long tel,String email,Direccion dir) {
-		
 		
 		this.cedula=cedula;
 		this.nombre=nombre;
@@ -26,29 +39,143 @@ public class Usuario {
 		
 	}
 	
-	
-	public void consultarBandejaDeEntrada() {
+	public Usuario(String n, long cedula) {
 		
-		
+		this.cedula=cedula;
+		this.nombre=n;
 		
 	}
 	
+	public String consultarBandejaDeEntrada() {
+		String texto = "";
+		DoubleNode dNodo = this.bandejaDeEntrada.first();
+		int nMensaje = 0;
+		
+		for(int i = 0;i < bandejaDeEntrada.size();i++) {
+		
+			Date fechaMensaje = ((Mensaje)dNodo.getData()).getDateHour();
+			String titulo = ((Mensaje)dNodo.getData()).getTitulo();
+			String remitente =((Mensaje)dNodo.getData()).getRemitente();
+		
+			nMensaje++;
+			texto += nMensaje + "# " + fechaMensaje.toLocaleString() + " " + titulo + " " + remitente+"\n";
+			
+			dNodo = dNodo.getNext();	
+		}
+		
+		return texto;
+	}
 	
+	public String mostrarMensajeBandeja(int nMensaje) {
+		DoubleNode nodo = bandejaDeEntrada.first();
+		String mensaje = "";
+		DoubleNode nAnterior = null;
+		
+		for(int i = 0;i < bandejaDeEntrada.size();i++) {
+			if(i == nMensaje - 1) {
+				
+				if(i==0) {
+					mensaje = ((Mensaje)nodo.getData()).getMensaje();
+					
+					mensajesLeidos.enqueue((Mensaje)nodo.getData());
+					bandejaDeEntrada.removeFirst();
+					
+					break;
+				}
+				
+				else if(i == bandejaDeEntrada.size()-1){
+					mensaje = ((Mensaje)nodo.getData()).getMensaje();
+					
+					mensajesLeidos.enqueue((Mensaje)nodo.getData());
+					bandejaDeEntrada.removeLast();
+					
+					break;
+				}
+				
+				mensaje = ((Mensaje)nodo.getData()).getMensaje();
+				
+				mensajesLeidos.enqueue((Mensaje)nodo.getData());
+				
+				nAnterior.setNext(nodo.getNext());
+		
+				bandejaDeEntrada.remove(nodo);
+				break;
+			
+			}
+			nAnterior = nodo;
+			nodo = nodo.getNext();
+		}
+		return mensaje;
+	}
+	
+//	public String consultarMensajesLeidos() {
+//		
+//		String texto ="";
+////		System.out.println( ((Mensaje)mensajesLeidos.first()).getCedulaDestinatario()+" aqui");
+//		Mensaje m = (Mensaje)this.mensajesLeidos.first();
+//		int nMensaje = 0;
+//		
+//		for(int i = 0;i < mensajesLeidos.size();i++) {
+//		
+//			Date fechaMensaje = m.getDateHour();
+//			String titulo = m.getTitulo();
+//			String remitente = m.getRemitente();
+//		
+//			nMensaje++;
+//			texto += nMensaje + "# " + fechaMensaje.toLocaleString() + " " + titulo + " " + remitente+"\n";
+//			
+//			
+//				
+//		}
+//		
+//		return texto;
+//	}
+	
+	public String enviarMensaje(Mensaje mensaje, SistemaMensajeria sistema) {
+		
+		Node nodo = sistema.getUsers().First();
+		String resultado = "Usuario no encontrado";
+		
+		for(int i = 0;i < sistema.getUsers().size();i++) {
+			 if(((Usuario)nodo.getData()).getId()== mensaje.getCedulaDestinatario()) {
+				 
+				 ((Usuario)nodo.getData()).getBandejaDeEntrada().addFirst(mensaje);
+				 resultado = "Mensaje enviado";
+				 break;
+			 }
+			 
+			 nodo = nodo.getNext();			
+		}
+		
+		
+		return resultado;
+		//Ingresar en la bandejaDeEntrada  del destinatario
+		//Actualizar el txt que conecta con la bandejaDeEntrada del destinatario
+		
+	}
+	
+	public void agregarLeidos(Mensaje mensaje) {
+		
+	}
 	public String getCargo() {
 		
 		return cargo;
 		
 	}
 	
-	public Usuario(String n, long cedula) {
-		
-		
-		this.cedula=cedula;
-		this.nombre=n;
-		
+	public void setClave(String clave) {
+		this.clave = clave;
+	}
+	
+	public String getClave() {
+		return this.clave;
+	}
+	
+	public void setCargo(String cargo) {
+		this.cargo = cargo;
 	}
 
-	public long getCedula() {
+	public long getId() {
 		return cedula;
 	}
 
@@ -104,18 +231,29 @@ public class Usuario {
 		this.email = email;
 	}
 
+	public void setBandejaDeEntrada(DoubleList bandeja) {
+		this.bandejaDeEntrada = bandeja;
+	}
+	
+	public DoubleList getBandejaDeEntrada() {
+		return this.bandejaDeEntrada;
+	}
+	
+	public Queue getMensajeLeidos() {
+		return this.mensajesLeidos;
+	}
+	
+	public void setMensajeaLeidos(Queue cola) {
+		this.mensajesLeidos = cola;
+	}
+	
 	@Override
 	public String toString() {
 		return nombre + " " + cedula + " "+ fecha_nac + " " + ciudad_nac
 				+ " " + tel +" "+ email +" "+dir;
 	}
 	
-	public void enviarMensaje(Mensaje m) {
-		
-		//Ingresar en la bandejaDeEntrada  del destinatario
-		//Actualizar el txt que conecta con la bandejaDeEntrada del destinatario
-		
-	}
+
 	
 	public void descartar(Mensaje m) {
 		
