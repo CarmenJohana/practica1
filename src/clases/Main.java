@@ -281,10 +281,13 @@ public class Main {
 	public static void importarUsuarios() {
 		
 		try {
-		
+			/*
 			archivo = new File("C:\\Users\\cjcho\\eclipse-workspace\\pr1\\src\\Archivos\\Empleados.txt");
 			archivo2= new File("C:\\Users\\cjcho\\eclipse-workspace\\pr1\\src\\Archivos\\Password.txt");
-			
+			*/
+			archivo = new File("src\\Archivos\\Empleados.txt");
+			archivo2 = new File("src\\Archivos\\Password.txt");
+
 			fr = new FileReader(archivo);
 			br = new BufferedReader(fr);
 			
