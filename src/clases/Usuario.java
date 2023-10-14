@@ -133,7 +133,7 @@ public class Usuario {
 	
 	public String enviarMensaje(Mensaje mensaje, SistemaMensajeria sistema) {
 		
-		Node nodo = sistema.getUsers().First();
+		DoubleNode<Usuario> nodo = sistema.getUsers().first();
 		String resultado = "Usuario no encontrado";
 		
 		for(int i = 0;i < sistema.getUsers().size();i++) {

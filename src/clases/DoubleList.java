@@ -16,6 +16,9 @@ public class DoubleList<T>{
 	public int size() {
 		return size;
 	}
+	public void setSize(int s){
+		size=s;
+	}
 	
 	public Boolean isEmpty(){
 		return size==0;
@@ -142,33 +145,58 @@ public class DoubleList<T>{
 	}
 	
 	
-	public DoubleNode<T> Middle(DoubleNode<T> start, DoubleNode<T> end) {
-		
-		
-		if (start.equals(null)|| end.equals(null)) {
-			return null;
-		}
-		else if (start.equals(end)) {
-			
-			return start;
-			
-		}
-		else {
-			
-			DoubleNode<T> temp1=first();
-			DoubleNode<T> temp2=first();
-			while(temp2!=end) {
-				temp2=temp2.getNext();
-				if(temp2!=end) {
-					temp2=temp2.getNext();
-					temp1=temp1.getNext();
-					
-				}
-			}
-			return temp1;
-			
-		}
-		
-	}
-}
 
+	public DoubleNode<T> Middle(DoubleNode<T> start, DoubleNode<T> end) {
+	    if (start == null || end == null) {
+	        return null;
+	    }
+
+	    DoubleNode<T> slow = start;
+	    DoubleNode<T> fast = start;
+
+	    while (fast != null && fast != end && fast.getNext() != end) {
+	        slow = slow.getNext();
+	        fast = fast.getNext().getNext();
+	    }
+
+	    return slow;
+	}
+
+
+
+	
+	
+	public void swapNodes(DoubleNode<T> node1, DoubleNode<T> node2) {
+        T temp = node1.getData();
+        node1.setData(node2.getData());
+        node2.setData(temp);
+    }
+	
+	public void quicksort(DoubleNode<T> low, DoubleNode<T> high) {
+        if (low != null && high != null && !low.equals(high) && low != high.getNext()) {
+            DoubleNode<T> pi = partition(low, high);
+            quicksort(low, pi.getPrev());
+            quicksort(pi.getNext(), high);
+        }
+    }
+
+    private DoubleNode<T> partition(DoubleNode<T> low, DoubleNode<T> high) {
+        Long pivot = ((Usuario) high.getData()).getId();
+        DoubleNode<T> i = low.getPrev();
+
+        for (DoubleNode<T> j = low; !j.equals(high); j = j.getNext()) {
+            if (((Usuario) j.getData()).getId()<pivot) {
+                i = (i == null) ? low : i.getNext();
+                swapNodes(i, j);
+            }
+        }
+
+        i = (i == null) ? low : i.getNext();
+        swapNodes(i, high);
+        return i;
+    }
+
+    public void sort() {
+        quicksort(head, tail);
+    }
+}

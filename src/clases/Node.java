@@ -28,5 +28,8 @@ public class Node <T>{
 		next=n;
 	}
 	
+	
+	
+	
+	
 }
-

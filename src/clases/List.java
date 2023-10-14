@@ -94,8 +94,39 @@ public class List<T> {
 			return temp.getData();
 			
 		}
+	}
+	
+	
+
+	public Node<T> Middle(Node<T> start, Node<T> end) {
+		
+		
+		if (start.equals(null)|| end.equals(null)) {
+			return null;
+		}
+		else if (start.equals(end)) {
+			
+			return start;
+			
+		}
+		else {
+			
+			Node<T> temp1=First();
+			Node<T> temp2=First();
+			while(temp2!=end) {
+				temp2=temp2.getNext();
+				if(temp2!=end) {
+					temp2=temp2.getNext();
+					temp1=temp1.getNext();
+					
+				}
+			}
+			return temp1;
+			
+		}
 		
 	}
 	
-
+	
+	
 }

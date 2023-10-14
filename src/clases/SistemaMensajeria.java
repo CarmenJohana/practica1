@@ -1,14 +1,10 @@
 package clases;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Scanner;
+
 
 public class SistemaMensajeria{
 	
-	private List users;
+	private DoubleList<Usuario> users;
 	private int capacity=0;
 	
 	public SistemaMensajeria(int capacity){
@@ -22,14 +18,19 @@ public class SistemaMensajeria{
 	Aquí van los métodos que se encargan de inicializar la lista de usuarios
 
 	***/
-	public void setUsers(List users){
+	
+	
+	
+	
+	public void setUsers(DoubleList<Usuario> users){
 
 		//Creamos los usuarios iniciales, estos son los extraídos del archivo empleados.txt
+		users.sort();
 		this.users=users;
-		this.users.setSize(capacity);		
+		
 
 	}
-	public List getUsers() {
+	public DoubleList<Usuario> getUsers() {
 		return this.users;	
 	}
 	
@@ -38,9 +39,44 @@ public class SistemaMensajeria{
 	por aquí. También los de cambio de contraseña y alias de usuario***/
 
 	
+	public DoubleNode<Usuario> busquedaUsuario(Long id) {
+	    DoubleNode<Usuario> start = users.first();
+	    DoubleNode<Usuario> end = users.last();
+
+	    // Caso especial: ID a buscar es menor que el mínimo ID en la lista
+	    if (id < start.getData().getId()) {
+	        return null;
+	    }
+
+	    // Búsqueda binaria
+	    while (start != null && end != null && start != end) {
+	        DoubleNode<Usuario> mid = users.Middle(start, end);
+
+	        if (mid.getData().getId() == id) {
+	            return mid;
+	        } else if (mid.getData().getId() < id) {
+	            start = mid.getNext();
+	        } else {
+	            end = mid.getPrev();
+	        }
+	    }
+
+	    // Verificar el último nodo si es el nodo buscado
+	    if (start != null && start.getData().getId() == id) {
+	        return start;
+	    }
+
+	    return null;
+	}
+
+	
+	
+
+	
+	
 	public String registrarUsuarios(Usuario usuario, String clave) {
 
-
+		/*
     	String nombre = usuario.getNombre();
     	Long cedula = usuario.getId();
     	Fecha fechaNacimiento = usuario.getFecha_nac();
@@ -48,40 +84,64 @@ public class SistemaMensajeria{
     	Long telefono = usuario.getTel();
     	String mail = usuario.getEmail();
     	Direccion direccion = usuario.getDir();
-    	
+    	*/
+		
     	usuario.setClave(clave);
     	
-    	Node nodo = users.First();
-		String resultado = "Usuario registrado con exito\n";
+    	//DoubleNode<Usuario> nodo = users.first();
+    	
+    	int numUsers= users.size();
+		//String resultado = "Usuario registrado con exito\n";
 		
 		
-		for(int i = 0; i < users.size(); i++) {
+		
+		
+		if(numUsers<capacity && (busquedaUsuario(usuario.getId()))==null) {
 			
-			if(((Usuario)nodo.getData()).getId() == cedula) {
-				resultado = "Este usuario ya se encuentra en el sistema\n";
-				break;
-			}
-			else nodo = nodo.getNext();
-		}
+			users.addLast(usuario);
+			numUsers++;
+			//System.out.println(users.last().getData());
 
-    	
-    	if(resultado=="Usuario registrado con exito\n") {
-    		users.addLast(usuario);
-    	}
-    	
-		return resultado;
-	
+		
+		if (numUsers>1){
+
+			
+			
+			DoubleNode<Usuario> previo= users.last().getPrev();
+			
+			while(previo!=null && previo.getData().getId()>previo.getNext().getData().getId()) {
+				
+				//Insertion Sort
+				Usuario temp = previo.getData();
+				previo.setData(previo.getNext().getData());
+				previo.getNext().setData(temp);
+				previo=previo.getPrev();
+				
+			}
+		
+			
+		}
+			return "El usuario "+ usuario.getEmail() +" fue registrado";
+
+		}
+		if(numUsers>=capacity) {
+		return "Capacidad maxima alcanzada. No es posible agregar a este usuario.";
+		}
+		return "El Id registrado ya se encuentra en el sistema";
+		
 	}
 	
 	
+
+	
 	public String cambiarContrasena(long id, String claveNueva) {
-		Node nodo = users.First();
+		DoubleNode<Usuario> nodo = users.first();
 		String resultado = "Usuario no registrado\n";
 		
 		for(int i = 0; i < users.size(); i++) {
 			
-			if(((Usuario)nodo.getData()).getId() == id) {
-				((Usuario)nodo.getData()).setClave(claveNueva);
+			if(nodo.getData().getId() == id) {
+				nodo.getData().setClave(claveNueva);
 				resultado = "Se cambio la contrasena\n";
 				break;
 			}
@@ -90,9 +150,12 @@ public class SistemaMensajeria{
 		return resultado;
 	}
 	
+	
+	
+	
 	public String eliminarUsuario(long id) {
 		
-		Node nodo = users.First();
+		DoubleNode<Usuario> nodo = users.first();
 		String resultado = "Usuario no registrado\n";
 		
 		for(int i = 0; i < users.size(); i++) {
@@ -116,8 +179,8 @@ public class SistemaMensajeria{
 			}
 		
 			else if(i < users.size()-2 &&((Usuario)nodo.getNext().getData()).getId() == id) {
-				Node nodoRemovido = nodo.getNext();
-				Node nodoEnlazar = nodoRemovido.getNext();
+				DoubleNode<Usuario> nodoRemovido = nodo.getNext();
+				DoubleNode<Usuario> nodoEnlazar = nodoRemovido.getNext();
 				nodo.setNext(nodoEnlazar);
 				users.setSize(users.size()-1);
 				
