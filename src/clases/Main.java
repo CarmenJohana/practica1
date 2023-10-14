@@ -170,60 +170,72 @@ public class Main {
                     break;
                 case 5:
                 	System.out.println("--------Registrar Usuario------");
-                	System.out.println("Ingrese el id del usuario: ");
-                	long idUsuario3 = scanner.nextLong();
-                	System.out.println("Ingrese el nombre: ");
-                	String nom = scanner.next();
-                	System.out.println("Ingrese la ciudad de nacimiento: ");
-                	String ciudadN = scanner.next();
-                	System.out.println("Ingrese el telefono: ");
-                	long telf = scanner.nextLong();
-                	System.out.println("Ingrese el mail: ");
-                	String mail = scanner.next();
-                	System.out.println("Ingrese el dia de nacimiento: ");
-                	int dd = scanner.nextInt();
-                	System.out.println("Ingrese el mes de nacimiento: ");
-                	int mm = scanner.nextInt();
-                	System.out.println("Ingrese el ano de nacimiento: ");
-                	int aa = scanner.nextInt();
-                	System.out.println("Ingrese calle: ");
-                	String cll = scanner.next();
-                	System.out.println("Ingrese nomesclatura: ");
-                	String nomesclatura = scanner.next();
-                	System.out.println("Ingrese barrio: ");
-                	String bar = scanner.next();
-                	System.out.println("Ingrese ciudad donde vive: ");
-                	String ciuV = scanner.next();
-                	System.out.println("Ingrese nombre de la urbanizacion de residencia: ");
-                	String urb = scanner.next();
-                	System.out.println("Ingrese el numero de apto: ");
-                	int apto = scanner.nextInt();
-                	System.out.println("Ingrese la nueva contraseña: ");
-                	String clave1 = scanner.next();
-                	
-                	Fecha fecha1 =new Fecha(dd, mm, aa);
-                	Direccion dir = new Direccion(cll, nom, bar, ciudadN, urb, apto);
-                	Usuario usuarioNew = new Usuario(nom, idUsuario3, fecha1, ciudadN, telf, mail, dir);
-                	
-                	System.out.println(sys1.registrarUsuarios(usuarioNew, clave1));
-                	
-                	
+                	if(user.getCargo().equals("administrador")) {
+                		System.out.println("Ingrese el id del usuario: ");
+                    	long idUsuario3 = scanner.nextLong();
+                    	System.out.println("Ingrese el nombre: ");
+                    	String nom = scanner.next();
+                    	System.out.println("Ingrese la ciudad de nacimiento: ");
+                    	String ciudadN = scanner.next();
+                    	System.out.println("Ingrese el telefono: ");
+                    	long telf = scanner.nextLong();
+                    	System.out.println("Ingrese el mail: ");
+                    	String mail = scanner.next();
+                    	System.out.println("Ingrese el dia de nacimiento: ");
+                    	int dd = scanner.nextInt();
+                    	System.out.println("Ingrese el mes de nacimiento: ");
+                    	int mm = scanner.nextInt();
+                    	System.out.println("Ingrese el ano de nacimiento: ");
+                    	int aa = scanner.nextInt();
+                    	System.out.println("Ingrese calle: ");
+                    	String cll = scanner.next();
+                    	System.out.println("Ingrese nomesclatura: ");
+                    	String nomesclatura = scanner.next();
+                    	System.out.println("Ingrese barrio: ");
+                    	String bar = scanner.next();
+                    	System.out.println("Ingrese ciudad donde vive: ");
+                    	String ciuV = scanner.next();
+                    	System.out.println("Ingrese nombre de la urbanizacion de residencia: ");
+                    	String urb = scanner.next();
+                    	System.out.println("Ingrese el numero de apto: ");
+                    	int apto = scanner.nextInt();
+                    	System.out.println("Ingrese la nueva contraseña: ");
+                    	String clave1 = scanner.next();
+                    	
+                    	Fecha fecha1 =new Fecha(dd, mm, aa);
+                    	Direccion dir = new Direccion(cll, nom, bar, ciudadN, urb, apto);
+                    	Usuario usuarioNew = new Usuario(nom, idUsuario3, fecha1, ciudadN, telf, mail, dir);
+                    	
+                    	System.out.println(sys1.registrarUsuarios(usuarioNew, clave1));
+                	}
+                	else System.out.println("Solo los administradores pueden registrar usuarios");
+          
                     break;
                 case 6:
 //                	codicion cargo del usuario
                 	System.out.println("------Cambiar contraseña------");
-                	System.out.println("Ingrese el id del usuario: ");
-                	long idUsuario = scanner.nextLong();
-                	System.out.println("Ingrese la nueva contraseña: ");
-                	String clave = scanner.next();
-                	System.out.print(sys1.cambiarContrasena(idUsuario, clave));
+                	if(user.getCargo().equals("administrador")) {
+                		System.out.println("Ingrese el id del usuario: ");
+                    	long idUsuario = scanner.nextLong();
+                    	System.out.println("Ingrese la nueva contraseña: ");
+                    	String clave = scanner.next();
+                    	System.out.print(sys1.cambiarContrasena(idUsuario, clave));
+                	}
+                	else System.out.println("Solo los administradores pueden cambiar contraseñas");
+                	
+                	
                     break;
                 case 7:
 //                	codicion cargo usuario
                 	System.out.println("--------Eliminar Usuario------");
-                	System.out.println("Ingrese el id del usuario: ");
-                	long idUsuario2 = scanner.nextLong();
-                	System.out.println(sys1.eliminarUsuario(idUsuario2));
+                	if(user.getCargo().equals("administrador")) {
+                		System.out.println("Ingrese el id del usuario: ");
+                    	long idUsuario2 = scanner.nextLong();
+                    	System.out.println(sys1.eliminarUsuario(idUsuario2));
+                    	
+                	}
+                	else System.out.println("Solo los administradores pueden cambiar contraseñas");
+                	
                 	
                     break;
                 case 0:
