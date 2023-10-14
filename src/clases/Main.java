@@ -242,13 +242,17 @@ public class Main {
 	        System.out.println("------ Inicio de Sesión ------");
 	        System.out.println("Ingrese su ID: ");
 	        Long id = lector.nextLong();
+	        
+	        // Consumir el salto de línea pendiente después de leer el ID
+	        lector.nextLine();
+	        
 	        System.out.println("Ingrese su contraseña: ");
-	        String contraseña = lector.nextLine(); // Consumir el salto de línea pendiente
-	        contraseña = lector.nextLine();
-
+	        String contraseña = lector.nextLine(); // Leer la contraseña
+	        
 	        DoubleNode<Usuario> u = sys1.busquedaUsuario(id);
 
-	        if (u != null && (u.getData().getClave()).equals(contraseña)) {
+	        // Verificar si el usuario y la contraseña coinciden
+	        if (u != null && contraseña.equals(u.getData().getClave())) {
 	            logIn = true;
 	            menuAdmin(u.getData(), lector);
 	        } else {
