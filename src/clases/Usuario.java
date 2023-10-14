@@ -23,9 +23,9 @@ public class Usuario {
 	private Direccion dir;
 	private long tel;
 	private String email;
-	private DoubleList bandejaDeEntrada;
-	private Queue mensajesLeidos;   //Los mensajes leídos estarán en una cola
-	private Stack borradores;  //Los borradores estarán en una pila
+	private DoubleList<Mensaje> bandejaDeEntrada= new DoubleList<Mensaje>();;
+	private Queue<Mensaje> mensajesLeidos= new Queue<Mensaje>();   //Los mensajes leídos estarán en una cola
+	private Stack<Mensaje> borradores= new Stack<Mensaje>();  //Los borradores estarán en una pila
 	
 	public Usuario(String nombre,long cedula,Fecha fecha_nac,String ciudad_nac,long tel,String email,Direccion dir) {
 		
@@ -48,7 +48,7 @@ public class Usuario {
 	
 	public String consultarBandejaDeEntrada() {
 		String texto = "";
-		DoubleNode dNodo = this.bandejaDeEntrada.first();
+		DoubleNode<Mensaje> dNodo = this.bandejaDeEntrada.first();
 		int nMensaje = 0;
 		
 		for(int i = 0;i < bandejaDeEntrada.size();i++) {
