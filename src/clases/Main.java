@@ -91,17 +91,7 @@ public class Main {
 
 	    Scanner scanner = new Scanner(System.in);
         int opcion;
-        System.out.println("-------- Menu de Funcionalidades --------");
-        System.out.println("0. Salir");
-        System.out.println("1. Enviar Mensaje");
-        System.out.println("2. Consultar Bandeja de entrada");
-        System.out.println("3. Consultar Mensajes Leidos");
-        System.out.println("4. Consultar borradores");
-        System.out.println("5. Agregar Usuario");
-        System.out.println("6. Cambiar contraseña");
-        System.out.println("7. Eliminar Usuario");
-        
-        System.out.print("Selecciona una opción: ");
+       
 
         
         
@@ -109,6 +99,17 @@ public class Main {
         
         
         do {
+        	 System.out.println("-------- Menu de Funcionalidades --------");
+             System.out.println("0. Salir");
+             System.out.println("1. Enviar Mensaje");
+             System.out.println("2. Consultar Bandeja de entrada");
+             System.out.println("3. Consultar Mensajes Leidos");
+             System.out.println("4. Consultar borradores");
+             System.out.println("5. Agregar Usuario");
+             System.out.println("6. Cambiar contraseña");
+             System.out.println("7. Eliminar Usuario");
+             
+             System.out.print("Selecciona una opción: ");
             
             opcion = scanner.nextInt();
             
