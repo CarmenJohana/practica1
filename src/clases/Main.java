@@ -18,83 +18,39 @@ public class Main {
 	static FileReader fr2= null;
 	static BufferedReader br = null;
 	static BufferedReader br2= null;
-	Scanner lector = new Scanner(System.in);
 	
 	
-
 	public static void toFile() {
-		
-		try {
-			FileWriter empleadostxt = new FileWriter("Empleados.txt");
-			PrintWriter informacion = new PrintWriter(empleadostxt);
-			FileWriter passwordstxt = new FileWriter("Password.txt");
-			PrintWriter informacion2 = new PrintWriter(passwordstxt);
-			DoubleNode<Usuario> usuario= sys1.getUsers().last();
-			
-			for( int i = 0; i < sys1.getUsers().size(); i++) {
-				
-				informacion.println(usuario.getData());
-				informacion2.println(usuario.getData().getId()+ " "+ usuario.getData().getClave()+ " "+usuario.getData().getCargo());
-			}
-			informacion.close();
-			informacion2.close();
-			System.out.println("Se ha actualizado el archivo Empleados.txt");
-			
-			
-		} catch(IOException e) {
-			  e.printStackTrace();
-			}
-		}
-	
-	
-	
-	public static void mostrarMenuPrincipal(SistemaMensajeria sys1, Scanner lector) {
-	    int opcion;
-	    do {
-	        System.out.println("\n------Bienvenido al sistema de mensajería------");
-	        System.out.println("\nSeleccione una de las siguientes opciones:");
-	        System.out.println("1. Iniciar sesión");
-	        System.out.println("2. Cerrar sistema");
+	    try {
+	        FileWriter empleadostxt = new FileWriter("Empleados.txt");
+	        PrintWriter informacion = new PrintWriter(empleadostxt);
+	        FileWriter passwordstxt = new FileWriter("Password.txt");
+	        PrintWriter informacion2 = new PrintWriter(passwordstxt);
+	        DoubleNode<Usuario> usuario = sys1.getUsers().last();
 
-	        opcion = lector.nextInt();
-
-	        switch (opcion) {
-	            case 1:
-	                iniciarSesion(sys1, lector);
-	                break;
-	            case 2:
-	                System.out.println("Hasta luego. ¡Gracias por usar nuestro sistema!");
-	                toFile();
-	                //GUARDAR CAMBIOS ANTES DE CERRAR
-	                
-	                
-	                
-	                
-	                try{    
-                    	
-	                       if( null != fr && null != fr2){   
-	                          fr.close();  
-	                          fr2.close();
-	                       }                  
-	                    }catch (Exception e2){ 
-	                       e2.printStackTrace();
-	                    }
-	                	break;
-	            default:
-	                System.out.println("Opción no válida. Introduce un número válido.");
-	                break;
+	        for (int i = 0; i < sys1.getUsers().size(); i++) {
+	            informacion.println(usuario.getData());
+	            informacion2.println(usuario.getData().getId() + " " + usuario.getData().getClave() + " " + usuario.getData().getCargo());
 	        }
-	    } while (opcion != 2);
-	}
-	
-	public static void menuAdmin(Usuario user) {
+	        informacion.close();
+	        informacion2.close();
+	        empleadostxt.close(); // Cerrar FileWriter
+	        passwordstxt.close(); // Cerrar FileWriter
+	        System.out.println("Se ha actualizado el archivo Empleados.txt");
 
-	    Scanner scanner = new Scanner(System.in);
+	    } catch (IOException e) {
+	        e.printStackTrace();
+	    }
+	}
+
+	
+	
+	
+	public static void menuAdmin(Usuario user, Scanner lector) {
+
+	    
         int opcion;
        
-
-        
-        
         
         
         
@@ -111,7 +67,7 @@ public class Main {
              
              System.out.print("Selecciona una opción: ");
             
-            opcion = scanner.nextInt();
+            opcion = lector.nextInt();
             
             switch (opcion) {
                 case 1:
@@ -119,19 +75,19 @@ public class Main {
                     // Aquí puedes colocar la funcionalidad correspondiente a la opción 1
                 	System.out.println("-----------Enviar Mensaje---------");
                 	System.out.println("Ingrese cedula del destinatario: ");
-                	long id = scanner.nextLong();
+                	long id = lector.nextLong();
                 	
                 	System.out.println("Ingrese titulo del mensaje: ");
-                	String titulo = scanner.next();
+                	String titulo = lector.next();
                 	
                 	System.out.println("Ingrese mensaje: ");
-                	String mensaje = scanner.next();
+                	String mensaje = lector.next();
                 	
                 	System.out.println("seleccione: ");
                 	System.out.println("1. Enviar mensaje ");
                 	System.out.println("2. Descartar mensaje");
                 	System.out.println("3. Guardar como borrador ");
-                	int opcionMensaje = scanner.nextInt();
+                	int opcionMensaje = lector.nextInt();
                 	
                 	
                 	
@@ -154,7 +110,7 @@ public class Main {
                 		break;
                 	}
                 	System.out.println("Selecione el mesaje:");
-                	opcion = scanner.nextInt();
+                	opcion = lector.nextInt();
                 	System.out.println("-----------Mensaje----------");
                 	System.out.println(user.mostrarMensajeBandeja(opcion));
                 	
@@ -166,41 +122,40 @@ public class Main {
                 	System.out.println("Consultar Mensajes Leidos");
                     break;
                 case 4:
-                	System.out.println("Cosultar borradores");
+                	System.out.println("Consultar borradores");
                     break;
                 case 5:
-                	System.out.println("--------Registrar Usuario------");
                 	if(user.getCargo().equals("administrador")) {
                 		System.out.println("Ingrese el id del usuario: ");
-                    	long idUsuario3 = scanner.nextLong();
+                    	long idUsuario3 = lector.nextLong();
                     	System.out.println("Ingrese el nombre: ");
-                    	String nom = scanner.next();
+                    	String nom = lector.next();
                     	System.out.println("Ingrese la ciudad de nacimiento: ");
-                    	String ciudadN = scanner.next();
+                    	String ciudadN = lector.next();
                     	System.out.println("Ingrese el telefono: ");
-                    	long telf = scanner.nextLong();
+                    	long telf = lector.nextLong();
                     	System.out.println("Ingrese el mail: ");
-                    	String mail = scanner.next();
+                    	String mail = lector.next();
                     	System.out.println("Ingrese el dia de nacimiento: ");
-                    	int dd = scanner.nextInt();
+                    	int dd = lector.nextInt();
                     	System.out.println("Ingrese el mes de nacimiento: ");
-                    	int mm = scanner.nextInt();
+                    	int mm = lector.nextInt();
                     	System.out.println("Ingrese el ano de nacimiento: ");
-                    	int aa = scanner.nextInt();
+                    	int aa = lector.nextInt();
                     	System.out.println("Ingrese calle: ");
-                    	String cll = scanner.next();
-                    	System.out.println("Ingrese nomesclatura: ");
-                    	String nomesclatura = scanner.next();
+                    	String cll = lector.next();
+                    	//System.out.println("Ingrese nomesclatura: ");
+                    	//String nomesclatura = lector.next();
                     	System.out.println("Ingrese barrio: ");
-                    	String bar = scanner.next();
-                    	System.out.println("Ingrese ciudad donde vive: ");
-                    	String ciuV = scanner.next();
+                    	String bar = lector.next();
+                    	//System.out.println("Ingrese ciudad donde vive: ");
+                    	//String ciuV = lector.next();
                     	System.out.println("Ingrese nombre de la urbanizacion de residencia: ");
-                    	String urb = scanner.next();
+                    	String urb = lector.next();
                     	System.out.println("Ingrese el numero de apto: ");
-                    	int apto = scanner.nextInt();
+                    	int apto = lector.nextInt();
                     	System.out.println("Ingrese la nueva contraseña: ");
-                    	String clave1 = scanner.next();
+                    	String clave1 = lector.next();
                     	
                     	Fecha fecha1 =new Fecha(dd, mm, aa);
                     	Direccion dir = new Direccion(cll, nom, bar, ciudadN, urb, apto);
@@ -216,49 +171,73 @@ public class Main {
                 	System.out.println("------Cambiar contraseña------");
                 	if(user.getCargo().equals("administrador")) {
                 		System.out.println("Ingrese el id del usuario: ");
-                    	long idUsuario = scanner.nextLong();
+                    	long idUsuario = lector.nextLong();
                     	System.out.println("Ingrese la nueva contraseña: ");
-                    	String clave = scanner.next();
+                    	String clave = lector.next();
                     	System.out.print(sys1.cambiarContrasena(idUsuario, clave));
                 	}
                 	else System.out.println("Solo los administradores pueden cambiar contraseñas");
                 	
                 	
-                    break;
                 case 7:
 //                	codicion cargo usuario
                 	System.out.println("--------Eliminar Usuario------");
                 	if(user.getCargo().equals("administrador")) {
                 		System.out.println("Ingrese el id del usuario: ");
-                    	long idUsuario2 = scanner.nextLong();
+                    	long idUsuario2 = lector.nextLong();
                     	System.out.println(sys1.eliminarUsuario(idUsuario2));
                     	
                 	}
-                	else System.out.println("Solo los administradores pueden cambiar contraseñas");
+                	else System.out.println("Solo los administradores pueden eliminar usuarios");
                 	
                 	
                     break;
                 case 0:
                 	System.out.println("0. Salir");
-                	iniciarSesion(sys1, scanner);
-                    break;
+                	
+                    return;
                
                 default:
                     System.out.println("Opción no válida. Introduce un número válido.");
             }
         } while (opcion != 0);
-        
-            // Cerrar el scanner
-           scanner.close();
+        mostrarMenuPrincipal(lector);
+            
 		
 	}
 	
 	
 	
-	
-	public static void iniciarSesion(SistemaMensajeria sys1, Scanner lector) {
-	    boolean logIn = false;
+	public static void mostrarMenuPrincipal(Scanner lector) {
+	    int opcion;
+	    boolean sistemaCerrado = false; // Agrega una bandera para verificar si el sistema ha sido cerrado
 
+	    do {
+	        System.out.println("\n------Bienvenido al sistema de mensajería------");
+	        System.out.println("\nSeleccione una de las siguientes opciones:");
+	        System.out.println("1. Iniciar sesión");
+	        System.out.println("2. Cerrar sistema");
+	        opcion = lector.nextInt();
+
+	        switch (opcion) {
+	            case 1:
+	                iniciarSesion(lector);
+	                break;
+	            case 2:
+	                System.out.println("Hasta luego. ¡Gracias por usar nuestro sistema!");
+	                toFile();
+	                sistemaCerrado = true; // Actualiza la bandera al cerrar el sistema
+	                break;
+	            default:
+	                System.out.println("Opción no válida. Introduce un número válido.");
+	                break;
+	        }
+	    } while (opcion != 2 && !sistemaCerrado); // El bucle se detendrá si el usuario elige cerrar el sistema o si el sistema ya está cerrado
+	}
+
+	public static void iniciarSesion(Scanner lector) {
+	    boolean logIn = false;
+	    int opcion2;
 	    while (!logIn) {
 	        System.out.println("------ Inicio de Sesión ------");
 	        System.out.println("Ingrese su ID: ");
@@ -268,20 +247,19 @@ public class Main {
 	        contraseña = lector.nextLine();
 
 	        DoubleNode<Usuario> u = sys1.busquedaUsuario(id);
-	        
-	        if (u != null && u.getData().getClave().equals(contraseña)) {
+
+	        if (u != null && (u.getData().getClave()).equals(contraseña)) {
 	            logIn = true;
-	            menuAdmin(u.getData());
+	            menuAdmin(u.getData(), lector);
 	        } else {
 	            System.out.println("Datos incorrectos");
-	            int opcion2;
 	            do {
 	                System.out.println("¿Desea intentar nuevamente? 1-(Sí) 2-(Volver al menú principal)");
 	                opcion2 = lector.nextInt();
 
 	                if (opcion2 == 2) {
 	                    logIn = true;
-	                    break;
+	                    return; // Salir del método si el usuario elige volver al menú principal
 	                } else if (opcion2 != 1) {
 	                    System.out.println("Opción no válida");
 	                }
@@ -384,6 +362,17 @@ public class Main {
 		catch(Exception e) {
 			e.printStackTrace();
 		}
+
+        
+        try{    
+        	
+               if( null != fr && null != fr2){   
+                  fr.close();  
+                  fr2.close();
+               }                  
+            }catch (Exception e2){ 
+               e2.printStackTrace();
+            }
 		
 	}
 	
@@ -480,10 +469,16 @@ public class Main {
 		*/
 		
 		importarUsuarios();
-		Scanner lector = new Scanner(System.in);
+		
         
-        mostrarMenuPrincipal(sys1, lector);
+		Scanner lector = new Scanner(System.in);
+
+        // Llamar a mostrarMenuPrincipal con el Scanner lector
+        mostrarMenuPrincipal(lector);
+
+        // Cerrar el Scanner después de que ya no se necesite
         lector.close();
+       
 		
 		/*
 		System.out.println("Cantidad de usuarios--->"+sys1.getUsers().size());
