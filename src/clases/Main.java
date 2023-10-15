@@ -139,7 +139,7 @@ public class Main {
                 	
                 	else if(opcionMensaje == 2)System.out.println("Mensaje descartado");
                 	
-                	else if (opcionMensaje == 3)System.out.println("borrador");
+                	else if (opcionMensaje == 3) {user.guardarBorrador(mensajeObj);}
           			
                     break;
                 case 2:
