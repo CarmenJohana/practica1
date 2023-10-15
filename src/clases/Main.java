@@ -1,6 +1,7 @@
 package clases;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -43,7 +44,46 @@ public class Main {
 	    }
 	}
 
-	
+public static void toMensajes() {
+    DoubleNode<Usuario> usuarioNode = sys1.getUsers().first();
+    String nombreArchivo = "Mensajes.txt";
+    String ruta = "src/Archivos/";
+
+    try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File(ruta, nombreArchivo)))) {
+        for (int i = 0; i < sys1.getUsers().size(); i++) {
+            Usuario usuario = usuarioNode.getData();
+            System.out.println(usuario.getId());
+
+            if (usuario.getBandejaDeEntrada().size() > 0) {
+                System.out.println(usuario.getBandejaDeEntrada().size());
+                String mensajesBandeja = usuario.escribirBandejaDeEntrada();
+                writer.write("cedula: " + usuario.getId() + "\n");
+                writer.write("Bandeja de entrada:\n");
+                writer.write(mensajesBandeja + "\n");
+            }
+
+			if (usuario.getMensajesLeidos().size() > 0) {
+				String mensajesLeidos = usuario.escribirMensajesLeidos();
+				writer.write("Mensajes leidos:\n");
+				writer.write(mensajesLeidos + "\n");
+			}
+
+			if (usuario.getBorradores().size() > 0) {
+				String mensajesBorradores = usuario.escribirMensajesBorradores();
+				writer.write("Borradores:\n");
+				writer.write(mensajesBorradores + "\n");
+			}
+
+            usuarioNode = usuarioNode.getNext();
+        }
+
+        System.out.println("Mensajes de la bandeja de entrada han sido escritos en " + nombreArchivo);
+    } catch (IOException e) {
+        System.out.println("Error al escribir el archivo: " + e.getMessage());
+    }
+}
+
+
 	
 	
 	public static void menuAdmin(Usuario user, Scanner lector) {
@@ -241,7 +281,6 @@ public class Main {
                     break;
                 case 0:
                 	System.out.println("0. Salir");
-                	
                     return;
                
                 default:
@@ -272,6 +311,7 @@ public class Main {
 	                break;
 	            case 2:
 	                System.out.println("Hasta luego. ¡Gracias por usar nuestro sistema!");
+					toMensajes();
 	                toFile();
 	                sistemaCerrado = true; // Actualiza la bandera al cerrar el sistema
 	                break;

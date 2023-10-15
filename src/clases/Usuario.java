@@ -1,5 +1,6 @@
 package clases;
 
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -347,4 +348,79 @@ public class Usuario {
 		borrador.append("\n").append(m.getMensaje()).append("\n");
 		return borrador.toString();
 	}
+
+	public String escribirBandejaDeEntrada() {
+	StringBuilder texto = new StringBuilder();
+	DoubleNode<Mensaje> dNodo = this.bandejaDeEntrada.first();
+	int nMensaje = 0;
+	
+	for (int i = 0; i < bandejaDeEntrada.size(); i++) {
+		Mensaje m = dNodo.getData();
+	
+		nMensaje++;
+		texto.append( "\n"+ "Fecha: " + m.getDateHour() + " Titulo: " + m.getTitulo() + " Remitente: " + m.getRemitente() + "\n");
+		texto.append("Mensaje:");
+		texto.append("\n").append(m.getMensaje()).append("\n");
+	
+		dNodo = dNodo.getNext();
+	}
+	
+	return texto.toString();
+	}
+
+	public String escribirMensajesLeidos() {
+		StringBuilder texto = new StringBuilder();
+		Queue<Mensaje> mensajesLeidoscopia= new Queue<Mensaje>();  
+		Queue<Mensaje> mensaje = this.mensajesLeidos;
+		int nMensaje = 0;
+		int c = mensajesLeidos.size();
+		
+		for(int i = 0;i < c;i++) {
+		
+			Date fechaMensaje = mensaje.first().getDateHour();
+			String titulo = mensaje.first().getTitulo();
+			String remitente =mensaje.first().getRemitente();
+		
+			nMensaje++;
+			texto.append( "\n"+ "Fecha: " + fechaMensaje.toLocaleString() + " Titulo: " + titulo + " Remitente: " + remitente + "\n");
+			texto.append("Mensaje:");
+			texto.append("\n").append(mensaje.first().getMensaje()).append("\n");
+			
+			mensajesLeidoscopia.enqueue(mensaje.first());
+			
+			mensaje.dequeue();
+			
+		}
+		this.mensajesLeidos = mensajesLeidoscopia;
+		return texto.toString();
+	}
+
+	public Queue<Mensaje> getMensajesLeidos() {
+		return mensajesLeidos;
+	}
+
+	public String escribirMensajesBorradores(){
+		StringBuilder texto = new StringBuilder();
+		Stack<Mensaje> borradores = this.getBorradores();
+		int nMensaje = 0;
+		int c = borradores.size();
+		
+		for(int i = 0;i < c;i++) {
+		
+			Date fechaMensaje = borradores.top().getDateHour();
+			String titulo = borradores.top().getTitulo();
+			String remitente =borradores.top().getRemitente();
+		
+			nMensaje++;
+			texto.append( "\n"+ "Fecha: " + fechaMensaje.toLocaleString() + " Titulo: " + titulo + " Remitente: " + remitente + "\n");
+			texto.append("Mensaje:");
+			texto.append("\n").append(borradores.top().getMensaje()).append("\n");
+			
+			borradores.pop();
+			
+		}
+		return texto.toString();
+	}
+
+
 }

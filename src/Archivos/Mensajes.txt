@@ -1,0 +1,38 @@
+cedula: 1075689
+Bandeja de entrada:
+
+Fecha: Sat Oct 14 22:14:10 COT 2023 Titulo: leido Remitente: Camila-Jimenez
+Mensaje:
+leido
+
+Mensajes leidos:
+
+Fecha: 14/10/2023, 10:15:39 p. m. Titulo: leido Remitente: Pedro-Gomez
+Mensaje:
+¤eido
+
+Borradores:
+
+Fecha: 14/10/2023, 10:15:58 p. m. Titulo: ola? Remitente: Pedro-Gomez
+Mensaje:
+ola
+
+cedula: 2345902
+Bandeja de entrada:
+
+Fecha: Sat Oct 14 22:14:50 COT 2023 Titulo: Yo Remitente: Camila-Jimenez
+Mensaje:
+yp
+
+Mensajes leidos:
+
+Fecha: 14/10/2023, 10:14:57 p. m. Titulo: hola Remitente: Camila-Jimenez
+Mensaje:
+ola
+
+Borradores:
+
+Fecha: 14/10/2023, 10:14:25 p. m. Titulo: borrador Remitente: Camila-Jimenez
+Mensaje:
+borrador
+
