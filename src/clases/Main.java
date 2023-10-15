@@ -77,18 +77,20 @@ public class Main {
                 	System.out.println("Ingrese cedula del destinatario: ");
                 	long id = lector.nextLong();
                 	
+                	lector.nextLine();
+                	
                 	System.out.println("Ingrese titulo del mensaje: ");
-                	String titulo = lector.next();
+                	String titulo = lector.nextLine();
                 	
                 	System.out.println("Ingrese mensaje: ");
-                	String mensaje = lector.next();
+                	String mensaje = lector.nextLine();
                 	
                 	System.out.println("seleccione: ");
                 	System.out.println("1. Enviar mensaje ");
                 	System.out.println("2. Descartar mensaje");
                 	System.out.println("3. Guardar como borrador ");
-                	int opcionMensaje = lector.nextInt();
-                	
+                	String opcionMensajeStr = lector.nextLine();
+                    int opcionMensaje = Integer.parseInt(opcionMensajeStr);
                 	
                 	
                 	Mensaje mensajeObj = new Mensaje(user.getNombre(), id, titulo, mensaje);
@@ -118,9 +120,22 @@ public class Main {
                 	
                     break;
                 case 3:
-                    // Aquí puedes colocar la funcionalidad correspondiente a la opción 3
-                	System.out.println("Consultar Mensajes Leidos");
+                	   // Aquí puedes colocar la funcionalidad correspondiente a la opción 3
+                	System.out.println("-----Mensajes Leidos-------");
+                	String m = user.consultarMensajeLeidos();
+                	System.out.println(m);
+                	if(m.equals("")) {
+                		System.out.println("No tienes mensajes leidos");
+                		break;
+                	}
+                	System.out.println("Selecione el mesaje:");
+                	opcion = lector.nextInt();
+                	System.out.println("-----------Mensaje----------");
+                	System.out.println(user.mostrarMensajeLeidos(opcion));
+                	
                     break;
+
+
                 case 4:
                 	System.out.println("Consultar borradores");
                     break;
@@ -424,7 +439,12 @@ public class Main {
 		Usuario u2=new Usuario( "Harry",2234, new Fecha(1,2,3), "Pompeya", 312, "harriest", new Direccion("Colombia", "a", "laureles", "Medellin", "reigal", 301));
 		Usuario u3=new Usuario("Louise",2134, new Fecha(1,2,3), "Pompeya", 312, "lololo", new Direccion("Colombia", "a", "laureles", "Medellin", "reigal", 301));
 		Usuario u4=new Usuario("Ronald",1111, new Fecha(1,2,3), "Pompeya", 312, "lololo", new Direccion("Colombia", "a", "laureles", "Medellin", "reigal", 301));
-		Usuario u5=new Usuario("LUIS",1113, new Fecha(1,2,3), "Pompeya", 312, "lololo", new Direccion("Colombia", "a", "laureles", "Medellin", "reigal", 301));
+		Usuario u5=new Usuario("Beltheodoro",1113, new Fecha(1,2,3), "Pompeya", 312, "lololo", new Direccion("Colombia", "a", "laureles", "Medellin", "reigal", 301));
+		u1.setClave("lololo");	
+		u2.setClave("123");
+		u3.setClave("Contraseña");
+		u4.setClave("contraseñaSecreta");
+		u5.setClave("ElOjoQueTodoLoVe");
 		
 		DoubleList<Usuario> u = new DoubleList<Usuario>();
 		u.addFirst(u3);

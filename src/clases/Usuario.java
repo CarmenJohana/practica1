@@ -131,6 +131,60 @@ public class Usuario {
 //		return texto;
 //	}
 	
+	public String consultarMensajeLeidos() {
+		String texto = "";
+		Queue<Mensaje> mensajesLeidoscopia= new Queue<Mensaje>();  
+		Queue<Mensaje> mensaje = this.mensajesLeidos;
+		int nMensaje = 0;
+		int c = mensajesLeidos.size();
+		
+		for(int i = 0;i < c;i++) {
+		
+			Date fechaMensaje = mensaje.first().getDateHour();
+			String titulo = mensaje.first().getTitulo();
+			String remitente =mensaje.first().getRemitente();
+		
+			nMensaje++;
+			texto += nMensaje + "# " + fechaMensaje.toLocaleString() + " " + titulo + " " + remitente+"\n";
+			
+			mensajesLeidoscopia.enqueue(mensaje.first());
+			
+			mensaje.dequeue();
+			
+		}
+		this.mensajesLeidos = mensajesLeidoscopia;
+		return texto;
+	}
+
+
+
+
+
+
+	public String mostrarMensajeLeidos(int nMensaje) {
+		String texto = "";
+		Queue<Mensaje> mensajesLeidoscopia= new Queue<Mensaje>();  
+		Queue<Mensaje> mensaje = this.mensajesLeidos;
+
+		int c = mensajesLeidos.size();
+		
+		for(int i = 0;i < c;i++) {
+
+			if(i == nMensaje-1) {
+
+				texto = mensaje.first().getMensaje();
+			}
+			
+			mensajesLeidoscopia.enqueue(mensaje.first());
+			
+			mensaje.dequeue();
+			
+		}
+		this.mensajesLeidos = mensajesLeidoscopia;
+		return texto;
+	}
+
+	
 	public String enviarMensaje(Mensaje mensaje, SistemaMensajeria sistema) {
 		
 		DoubleNode<Usuario> nodo = sistema.getUsers().first();
@@ -231,11 +285,11 @@ public class Usuario {
 		this.email = email;
 	}
 
-	public void setBandejaDeEntrada(DoubleList bandeja) {
+	public void setBandejaDeEntrada(DoubleList<Mensaje> bandeja) {
 		this.bandejaDeEntrada = bandeja;
 	}
 	
-	public DoubleList getBandejaDeEntrada() {
+	public DoubleList<Mensaje> getBandejaDeEntrada() {
 		return this.bandejaDeEntrada;
 	}
 	
@@ -243,7 +297,7 @@ public class Usuario {
 		return this.mensajesLeidos;
 	}
 	
-	public void setMensajeaLeidos(Queue cola) {
+	public void setMensajeaLeidos(Queue<Mensaje> cola) {
 		this.mensajesLeidos = cola;
 	}
 	
