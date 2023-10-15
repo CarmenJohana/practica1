@@ -312,7 +312,7 @@ public class Usuario {
 	public void descartar(Mensaje m) {
 		
 		//Eliminar mensaje (destroy)
-		
+		this.borradores.pop();
 		
 	}
 	
@@ -320,6 +320,7 @@ public class Usuario {
 		
 		//Ingresar en Borradores del remitente
 		//Actulizar el txt conectado con el borrador del remitente
+		this.borradores.push(m);
 	}
 	
 	public void almacenarInformacionUsuario() {
@@ -330,4 +331,20 @@ public class Usuario {
 		//B para borradores
 	}
 
+	public Stack<Mensaje> getBorradores() {
+		return borradores;
+	}
+
+	public void setBorradores(Stack<Mensaje> borradores) {
+		this.borradores = borradores;
+	}
+
+	public String mostrarMensajeBorrador(){
+		StringBuilder borrador = new StringBuilder();
+		Mensaje m = this.getBorradores().top();
+		borrador.append("Fecha: " + m.getDateHour() + " Título: " + m.getTitulo() + " Remitente: " + m.getRemitente() + "\n");
+		borrador.append("Mensaje:");
+		borrador.append("\n").append(m.getMensaje()).append("\n");
+		return borrador.toString();
+	}
 }

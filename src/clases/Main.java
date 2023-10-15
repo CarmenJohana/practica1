@@ -100,7 +100,11 @@ public class Main {
                 	
                 	else if(opcionMensaje == 2)System.out.println("Mensaje descartado");
                 	
-                	else if (opcionMensaje == 3)System.out.println("borrador");
+                	else if (opcionMensaje == 3) {
+						user.guardarBorrador(mensajeObj);
+						System.out.println("Mensaje guardado como borrador");
+						System.out.println("-----------------------------------------");
+					}
           			
                     break;
                 case 2:
@@ -137,8 +141,36 @@ public class Main {
 
 
                 case 4:
-                	System.out.println("Consultar borradores");
-                    break;
+				System.out.println("Cosultar borradores:");
+				if (user.getBorradores().top() == null) {
+					System.out.println("--------------Borradores-----------------");
+					System.out.println("No tienes borradores");
+				} else {
+					System.out.println("-----------Borradores----------");
+					System.out.println(user.mostrarMensajeBorrador());
+
+					
+					System.out.println("seleccione: ");
+					System.out.println("1. Enviar mensaje ");
+					System.out.println("2. Descartar mensaje");
+					System.out.println("0. Salir ");
+					int opcionBorrador = lector.nextInt();
+
+					if(opcionBorrador == 1) {
+						System.out.println(user.enviarMensaje(user.getBorradores().top(), sys1));
+						user.getBorradores().pop();
+					}
+					
+					else if(opcionBorrador == 2) {
+						user.descartar(user.getBorradores().top());
+						System.out.println("-----------------------------------------");
+						System.out.println("Mensaje descartado");
+					}
+
+
+					break;
+				}
+				break;
                 case 5:
                 	if(user.getCargo().equals("administrador")) {
                 		System.out.println("Ingrese el id del usuario: ");
