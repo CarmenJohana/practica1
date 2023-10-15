@@ -3,7 +3,7 @@ package clases;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
-public class DoubleList<T> implements Iterable<T> {
+public class DoubleList<T> {
 
 	
 	private DoubleNode<T> head;
@@ -202,28 +202,7 @@ public class DoubleList<T> implements Iterable<T> {
     public void sort() {
         quicksort(head, tail);
     }
+	
 
-		// Tu código existente aquí
-	
-		@Override
-		public Iterator<T> iterator() {
-			return new Iterator<T>() {
-				private DoubleNode<T> currentNode = first();
-	
-				@Override
-				public boolean hasNext() {
-					return currentNode != null;
-				}
-	
-				@Override
-				public T next() {
-					if (hasNext()) {
-						T data = currentNode.getData();
-						currentNode = currentNode.getNext();
-						return data;
-					}
-					throw new NoSuchElementException();
-				}
-			};
-		}
+
 }
