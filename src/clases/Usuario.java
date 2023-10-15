@@ -1,16 +1,5 @@
 package clases;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.Scanner;
-
 import java.util.Date;
 
 
@@ -304,8 +293,8 @@ public class Usuario {
 	
 	@Override
 	public String toString() {
-		return nombre + " " + cedula + " "+ fecha_nac + " " + ciudad_nac
-				+ " " + tel +" "+ email +" "+dir;
+		return nombre + ", " + cedula + ", "+ fecha_nac + ", " + ciudad_nac
+				+ ", " + tel +", "+ email +", "+dir;
 	}
 	
 

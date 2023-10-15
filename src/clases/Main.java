@@ -7,31 +7,69 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Scanner;
 
 public class Main {
 	static SistemaMensajeria sys1;
-	static File archivo=null;
-	static File archivo2=null;
-	static FileReader fr= null;
-	static FileReader fr2= null;
+	static File archivo = null;
+	static File archivo2 = null;
+	static FileReader fr = null;
+	static FileReader fr2 = null;
 	static BufferedReader br = null;
-	static BufferedReader br2= null;
+	static BufferedReader br2 = null;
+	
+	public static void toMensajes() {
+	    DoubleNode<Usuario> usuarioNode = sys1.getUsers().first();
+	    String nombreArchivo = "Mensajes.txt";
+	    String ruta = "src/Archivos/";
+
+	    try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File(ruta, nombreArchivo)))) {
+	        for (int i = 0; i < sys1.getUsers().size(); i++) {
+	            Usuario usuario = usuarioNode.getData();
+	            //System.out.println(usuario.getId());
+
+	            if (usuario.getBandejaDeEntrada().size() > 0) {
+	                System.out.println(usuario.getBandejaDeEntrada().size());
+	                String mensajesBandeja = usuario.escribirBandejaDeEntrada();
+	                writer.write("cedula: " + usuario.getId() + "\n");
+	                writer.write("Bandeja de entrada:\n");
+	                writer.write(mensajesBandeja + "\n");
+	            }
+
+				if (usuario.getMensajesLeidos().size() > 0) {
+					String mensajesLeidos = usuario.escribirMensajesLeidos();
+					writer.write("Mensajes leidos:\n");
+					writer.write(mensajesLeidos + "\n");
+				}
+
+				if (usuario.getBorradores().size() > 0) {
+					String mensajesBorradores = usuario.escribirMensajesBorradores();
+					writer.write("Borradores:\n");
+					writer.write(mensajesBorradores + "\n");
+				}
+
+	            usuarioNode = usuarioNode.getNext();
+	        }
+
+	        System.out.println("Mensajes de la bandeja de entrada han sido escritos en " + nombreArchivo);
+	    } catch (IOException e) {
+	        System.out.println("Error al escribir el archivo: " + e.getMessage());
+	    }
+}
 	
 	
 	public static void toFile() {
 	    try {
-	        FileWriter empleadostxt = new FileWriter("Empleados.txt");
+	        FileWriter empleadostxt = new FileWriter("src\\Archivos\\Empleados.txt");
 	        PrintWriter informacion = new PrintWriter(empleadostxt);
-	        FileWriter passwordstxt = new FileWriter("Password.txt");
+	        FileWriter passwordstxt = new FileWriter("src\\Archivos\\Password.txt");
 	        PrintWriter informacion2 = new PrintWriter(passwordstxt);
-	        DoubleNode<Usuario> usuario = sys1.getUsers().last();
+	        DoubleNode<Usuario> usuario = sys1.getUsers().first();
 
 	        for (int i = 0; i < sys1.getUsers().size(); i++) {
 	            informacion.println(usuario.getData());
 	            informacion2.println(usuario.getData().getId() + " " + usuario.getData().getClave() + " " + usuario.getData().getCargo());
+	            usuario=usuario.getNext();
 	        }
 	        informacion.close();
 	        informacion2.close();
@@ -44,46 +82,7 @@ public class Main {
 	    }
 	}
 
-public static void toMensajes() {
-    DoubleNode<Usuario> usuarioNode = sys1.getUsers().first();
-    String nombreArchivo = "Mensajes.txt";
-    String ruta = "src/Archivos/";
-
-    try (BufferedWriter writer = new BufferedWriter(new FileWriter(new File(ruta, nombreArchivo)))) {
-        for (int i = 0; i < sys1.getUsers().size(); i++) {
-            Usuario usuario = usuarioNode.getData();
-            System.out.println(usuario.getId());
-
-            if (usuario.getBandejaDeEntrada().size() > 0) {
-                System.out.println(usuario.getBandejaDeEntrada().size());
-                String mensajesBandeja = usuario.escribirBandejaDeEntrada();
-                writer.write("cedula: " + usuario.getId() + "\n");
-                writer.write("Bandeja de entrada:\n");
-                writer.write(mensajesBandeja + "\n");
-            }
-
-			if (usuario.getMensajesLeidos().size() > 0) {
-				String mensajesLeidos = usuario.escribirMensajesLeidos();
-				writer.write("Mensajes leidos:\n");
-				writer.write(mensajesLeidos + "\n");
-			}
-
-			if (usuario.getBorradores().size() > 0) {
-				String mensajesBorradores = usuario.escribirMensajesBorradores();
-				writer.write("Borradores:\n");
-				writer.write(mensajesBorradores + "\n");
-			}
-
-            usuarioNode = usuarioNode.getNext();
-        }
-
-        System.out.println("Mensajes de la bandeja de entrada han sido escritos en " + nombreArchivo);
-    } catch (IOException e) {
-        System.out.println("Error al escribir el archivo: " + e.getMessage());
-    }
-}
-
-
+	
 	
 	
 	public static void menuAdmin(Usuario user, Scanner lector) {
@@ -140,11 +139,7 @@ public static void toMensajes() {
                 	
                 	else if(opcionMensaje == 2)System.out.println("Mensaje descartado");
                 	
-                	else if (opcionMensaje == 3) {
-						user.guardarBorrador(mensajeObj);
-						System.out.println("Mensaje guardado como borrador");
-						System.out.println("-----------------------------------------");
-					}
+                	else if (opcionMensaje == 3)System.out.println("borrador");
           			
                     break;
                 case 2:
@@ -181,36 +176,33 @@ public static void toMensajes() {
 
 
                 case 4:
-				System.out.println("Cosultar borradores:");
-				if (user.getBorradores().top() == null) {
-					System.out.println("--------------Borradores-----------------");
-					System.out.println("No tienes borradores");
-				} else {
-					System.out.println("-----------Borradores----------");
-					System.out.println(user.mostrarMensajeBorrador());
+                	System.out.println("Cosultar borradores:");
+    				if (user.getBorradores().top() == null) {
+    					System.out.println("--------------Borradores-----------------");
+    					System.out.println("No tienes borradores");
+    				} else {
+    					System.out.println("-----------Borradores----------");
+    					System.out.println(user.mostrarMensajeBorrador());
 
-					
-					System.out.println("seleccione: ");
-					System.out.println("1. Enviar mensaje ");
-					System.out.println("2. Descartar mensaje");
-					System.out.println("0. Salir ");
-					int opcionBorrador = lector.nextInt();
+    					
+    					System.out.println("seleccione: ");
+    					System.out.println("1. Enviar mensaje ");
+    					System.out.println("2. Descartar mensaje");
+    					System.out.println("0. Salir ");
+    					int opcionBorrador = lector.nextInt();
 
-					if(opcionBorrador == 1) {
-						System.out.println(user.enviarMensaje(user.getBorradores().top(), sys1));
-						user.getBorradores().pop();
-					}
-					
-					else if(opcionBorrador == 2) {
-						user.descartar(user.getBorradores().top());
-						System.out.println("-----------------------------------------");
-						System.out.println("Mensaje descartado");
-					}
-
-
-					break;
-				}
-				break;
+    					if(opcionBorrador == 1) {
+    						System.out.println(user.enviarMensaje(user.getBorradores().top(), sys1));
+    						user.getBorradores().pop();
+    					}
+    					
+    					else if(opcionBorrador == 2) {
+    						user.descartar(user.getBorradores().top());
+    						System.out.println("-----------------------------------------");
+    						System.out.println("Mensaje descartado");
+    					}
+    				}
+                        break;
                 case 5:
                 	if(user.getCargo().equals("administrador")) {
                 		System.out.println("Ingrese el id del usuario: ");
@@ -265,7 +257,7 @@ public static void toMensajes() {
                 	}
                 	else System.out.println("Solo los administradores pueden cambiar contraseñas");
                 	
-                	
+                	break;
                 case 7:
 //                	codicion cargo usuario
                 	System.out.println("--------Eliminar Usuario------");
@@ -281,6 +273,7 @@ public static void toMensajes() {
                     break;
                 case 0:
                 	System.out.println("0. Salir");
+                	
                     return;
                
                 default:
@@ -311,7 +304,7 @@ public static void toMensajes() {
 	                break;
 	            case 2:
 	                System.out.println("Hasta luego. ¡Gracias por usar nuestro sistema!");
-					toMensajes();
+	                toMensajes();
 	                toFile();
 	                sistemaCerrado = true; // Actualiza la bandera al cerrar el sistema
 	                break;
@@ -390,7 +383,7 @@ public static void toMensajes() {
 	        	
 	        	String[] textoSeparado = linea.split(", "); //Texto empleados.txt
 	        	String[] textoSeparado2 = linea2.split(" ");//Texto password.txt
-	        	//System.out.println("hjgjh"+textoSeparado2[1]);//Comprueba que lee el segundo archivo
+	        	//System.out.println("hjgjh"+textoSeparado[1]);//Comprueba que lee el segundo archivo
 	        	
 	        	Usuario u1=new Usuario(textoSeparado[0], Long.parseLong(textoSeparado[1]));
 	        	
@@ -430,7 +423,7 @@ public static void toMensajes() {
 	        		u1.setCargo(textoSeparado2[2]);
 	        	
 	        		//System.out.println("NULLL PARA "+sys1.busquedaUsuario(u1.getId())+ u1);
-	        			
+	        		System.out.println();
 	        		System.out.println(sys1.registrarUsuarios(u1,textoSeparado2[1]));
 	        		
 	        		
@@ -517,6 +510,12 @@ public static void toMensajes() {
 		u3.setClave("Contraseña");
 		u4.setClave("contraseñaSecreta");
 		u5.setClave("ElOjoQueTodoLoVe");
+		
+		u1.setCargo("empleado");	
+		u2.setCargo("administrador");
+		u3.setCargo("empleado");
+		u4.setCargo("administrador");
+		u5.setCargo("empleado");
 		
 		DoubleList<Usuario> u = new DoubleList<Usuario>();
 		u.addFirst(u3);
